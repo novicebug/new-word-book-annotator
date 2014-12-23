@@ -1,1 +1,6 @@
-1234
+- Have a listbox with the available books on the left. Have an option to select all.
+
+
+- Have a search field on the top right with a search button.
+
+- Below show the word with its pronunciation and meaning. Below show examples of using the word (take them from http://www.vocabulary.com/) and finally shoe on which pages is the word found.
