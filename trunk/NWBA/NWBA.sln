@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NWBA", "NWBA\NWBA.csproj", "{01557224-D835-47DB-B46A-EC2892AC834B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NWBA.Base", "NWBA.Base\NWBA.Base.csproj", "{111B675C-7F56-4B60-9AFC-963F48EAB384}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{01557224-D835-47DB-B46A-EC2892AC834B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01557224-D835-47DB-B46A-EC2892AC834B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01557224-D835-47DB-B46A-EC2892AC834B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01557224-D835-47DB-B46A-EC2892AC834B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{111B675C-7F56-4B60-9AFC-963F48EAB384}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{111B675C-7F56-4B60-9AFC-963F48EAB384}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{111B675C-7F56-4B60-9AFC-963F48EAB384}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{111B675C-7F56-4B60-9AFC-963F48EAB384}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

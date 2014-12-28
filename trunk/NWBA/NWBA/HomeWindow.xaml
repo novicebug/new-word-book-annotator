@@ -1,0 +1,100 @@
+﻿<Window x:Class="NWBA.HomeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="New Word Book Annotator" 
+        WindowStartupLocation="CenterScreen"
+        Height="600" Width="800"
+        >
+    <Grid x:Name="LayoutRoot">
+        <TabControl x:Name="tcMenu"
+                    Margin="10"
+                    >
+            <TabItem x:Name="tiHome"
+                     Header="Home"                     
+                     >
+                <Grid Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Row 0 -->
+                    <TextBlock Grid.Row="0" Grid.Column="0">Books:</TextBlock>
+                    <TextBlock Grid.Row="0" Grid.Column="1">Search:</TextBlock>
+                    <TextBox x:Name="txtSearch"
+                             Grid.Row="0" Grid.Column="2"
+                             Margin="5,0,0,0"
+                             />
+                    <!-- EndRow 0 -->
+
+                    <!-- Row 1 -->                    
+                    <ListBox x:Name="lstBook"
+                             Grid.Row="1" Grid.RowSpan="3" Grid.Column="0"
+                             ItemsSource="{Binding Path=BookList}"
+                             DisplayMemberPath="DisplayMember"                             
+                             SelectionChanged="lstBook_SelectionChanged"
+                             />
+                    <!-- EndRow 1 -->
+
+                    <!-- Row 0 -->
+                    <!-- EndRow 0 -->
+                    
+                    <!-- Row 0 -->
+                    <!-- EndRow 0 -->
+
+                    <!-- Row 0 -->
+                    <!-- EndRow 0 -->
+                </Grid>
+            </TabItem>
+            
+            <TabItem x:Name="tiAdd"
+                     Header="Add"
+                     >
+                Add
+            </TabItem>
+            
+            <TabItem x:Name="tiSettings"
+                     Header="Settings"
+                     >
+                <Grid Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Row 0 -->
+                    <TextBlock Grid.Row="0" Grid.Column="0">Book Path:</TextBlock>
+                    <TextBox x:Name="txtBookPath"
+                             Grid.Row="0" Grid.Column="1"
+                             Margin="5,0,0,0"
+                             />
+                    <!-- EndRow 0 -->
+
+                    <!-- Row 0 -->
+                    <Button x:Name="cmdSaveSettings"
+                            Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                            Content="Save"
+                            Click="cmdSaveSettings_Click"/>
+                    <!-- EndRow 0 -->
+
+                    <!-- Row 0 -->
+                    <!-- EndRow 0 -->
+
+                    <!-- Row 0 -->
+                    <!-- EndRow 0 -->
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
