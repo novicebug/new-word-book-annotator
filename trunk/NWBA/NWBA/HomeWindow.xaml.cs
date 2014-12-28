@@ -57,12 +57,22 @@ namespace NWBA
             m_arrBookList.Add(new ValueItem("test 2", 2));
             m_arrBookList.Add(new ValueItem("test 3", 3));
 
-            LoadSettignsTab();
+            LoadSettingsTab();
         }
 
         private void lstBook_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             txtSearch.Text = ((ValueItem)lstBook.SelectedValue).ValueMember.ToString();
+        }
+
+        private string GetBookRootPath()
+        {
+            return Directory.GetCurrentDirectory() + Consts.DIRECTORY_SEPARATOR + Consts.BOOK_ROOT_PATH;
+        }
+
+        private void LoadBookList()
+        {
+            
         }
 
         #region " Settings Tab "
@@ -71,9 +81,15 @@ namespace NWBA
             m_oSettings.BookPath = txtBookPath.Text;
 
             m_oSettings.SaveSettings();
+
+            string sBookRootPath = GetBookRootPath();
+            if (!Directory.Exists(sBookRootPath))
+            {
+                Directory.CreateDirectory(sBookRootPath);
+            }
         }
 
-        private void LoadSettignsTab()
+        private void LoadSettingsTab()
         {
             txtBookPath.Text = m_oSettings.BookPath;
         }
