@@ -32,7 +32,7 @@ namespace NWBA.Base
 
         private string GetSettingsFilePath()
         {
-            return Directory.GetCurrentDirectory() + Consts.DIRECTORY_SEPARATOR + "settings.xml";
+            return Directory.GetCurrentDirectory() + Consts.DIRECTORY_SEPARATOR + Consts.SETTINGS_FILE_NAME;
         }
 
         public bool LoadSettings()
