@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -53,32 +54,56 @@ namespace NWBA
                 tcMenu.SelectedItem = tiSettings;
             }
 
-            m_arrBookList.Add(new ValueItem("test 1", 1));
-            m_arrBookList.Add(new ValueItem("test 2", 2));
-            m_arrBookList.Add(new ValueItem("test 3", 3));
-
+            LoadHomeTab();
             LoadSettingsTab();
         }
 
         private void lstBook_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             txtSearch.Text = ((ValueItem)lstBook.SelectedValue).ValueMember.ToString();
+
+            if (((int)((ValueItem)lstBook.SelectedValue).ValueMember) == 0) // All
+            {
+                tiAdd.IsEnabled = false;                
+            }
+            else
+            {
+                tiAdd.IsEnabled = true;                
+            }
         }
 
         private string GetBookRootPath()
         {
-            return Directory.GetCurrentDirectory() + Consts.DIRECTORY_SEPARATOR + Consts.BOOK_ROOT_PATH;
+            return m_oSettings.BookPath + Consts.DIRECTORY_SEPARATOR + Consts.BOOK_DIRECTORY_PATH;
         }
 
+        #region " Home Tab "
         private void LoadBookList()
         {
-            
+            string sBookRootPath = GetBookRootPath();
+            string[] books = Directory.GetFiles(sBookRootPath);
+
+            m_arrBookList.Add(new ValueItem("---ALL---", 0));
+
+            foreach (string sBookFilePath in books)
+            {
+                Book oBook = new Book(sBookFilePath);
+
+                m_arrBookList.Add(new ValueItem(oBook.Title, oBook.Id));
+            }
         }
+
+        private void LoadHomeTab()
+        {
+            LoadBookList();
+        }
+        #endregion
 
         #region " Settings Tab "
         private void cmdSaveSettings_Click(object sender, RoutedEventArgs e)
         {
             m_oSettings.BookPath = txtBookPath.Text;
+            // TODO: Add other settings here before save.
 
             m_oSettings.SaveSettings();
 
