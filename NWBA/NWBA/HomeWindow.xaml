@@ -37,7 +37,7 @@
                     <ListBox x:Name="lstBook"
                              Grid.Row="1" Grid.RowSpan="3" Grid.Column="0"
                              ItemsSource="{Binding Path=BookList}"
-                             DisplayMemberPath="DisplayMember"                             
+                             DisplayMemberPath="DisplayMember"    
                              SelectionChanged="lstBook_SelectionChanged"
                              />
                     <!-- EndRow 1 -->

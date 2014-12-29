@@ -10,6 +10,6 @@ namespace NWBA.Base
         public const string DIRECTORY_SEPARATOR = "\\";
 
         public const string SETTINGS_FILE_NAME = "settings.xml";
-        public const string BOOK_ROOT_PATH = "NWBA_ROOT";
+        public const string BOOK_DIRECTORY_PATH = "NWBA_ROOT";
     }
 }
