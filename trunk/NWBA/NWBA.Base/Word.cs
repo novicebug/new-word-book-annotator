@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
+using System.ComponentModel;
 
 namespace NWBA.Base
 {
@@ -15,22 +16,11 @@ namespace NWBA.Base
             public const string VALUE = "value";
         }
 
-        private string m_sValue;
-        public string Value
-        {
-            get
-            {
-                return m_sValue;
-            }
-            set
-            {
-                m_sValue = value;
-            }
-        }
+        public string Value { get; set; }
 
         public Word(XElement xWord)
         {
-            m_sValue = xWord.Element(Schema.VALUE).Value;
+            this.Value = xWord.Element(Schema.VALUE).Value;
         }
     }
 }

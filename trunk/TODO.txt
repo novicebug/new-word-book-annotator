@@ -7,3 +7,8 @@
 
 
 - When a concrete book is selected in the filter, i.e. other than "---ALL---" option, then check if the searched word is met in other books and if yes mark the word in the details in some way, for example chage its background so that this notifies that the word is met in other places as well.
+
+
+- Keep the last selected book after close.
+
+- Allow editing of words.
