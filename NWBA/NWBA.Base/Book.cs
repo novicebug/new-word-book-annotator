@@ -74,7 +74,20 @@ namespace NWBA.Base
             string sBookFileName = System.IO.Path.GetFileNameWithoutExtension(sBookFilePath);
             XDocument xBook = XDocument.Load(sBookFilePath);
 
-            m_nId = int.Parse(sBookFileName.Substring(4));
+            InitBook(xBook, int.Parse(sBookFileName.Substring(4)));
+        }
+
+        public Book(string sBookRootPath, int nId)
+        {
+            string sBookFilePath = sBookRootPath + Consts.DIRECTORY_SEPARATOR + "book" + nId.ToString() + ".xml";
+            XDocument xBook = XDocument.Load(sBookFilePath);
+
+            InitBook(xBook, nId);
+        }
+
+        private void InitBook(XDocument xBook, int nId)
+        {
+            m_nId = nId;
             m_sVersion = xBook.Root.Element(Schema.VERSION).Value;
             m_sTitle = xBook.Root.Element(Schema.BOOK_TITLE).Value;
 
@@ -83,6 +96,21 @@ namespace NWBA.Base
             {
                 m_arrWords.Add(new Word(xWord));
             }
+        }
+
+        public List<Word> FindMatchingWords(string sWordPart)
+        {
+            List<Word> result = new List<Word>();
+
+            foreach(Word word in m_arrWords)
+            {
+                if (word.Value.Contains(sWordPart))
+                {
+                    result.Add(word);
+                }
+            }
+
+            return result;
         }
     }
 }

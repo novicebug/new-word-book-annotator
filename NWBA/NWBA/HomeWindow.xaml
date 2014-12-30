@@ -17,10 +17,11 @@
                         <ColumnDefinition Width="200"/>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="100"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
@@ -31,6 +32,12 @@
                              Grid.Row="0" Grid.Column="2"
                              Margin="5,0,0,0"
                              />
+                    <Button x:Name="cmdSearch"
+                            Grid.Row="0" Grid.Column="3"
+                            Margin="5,0,0,0"
+                            Content="Search"
+                            Click="cmdSearch_Click"
+                            />                            
                     <!-- EndRow 0 -->
 
                     <!-- Row 1 -->                    
@@ -40,23 +47,50 @@
                              DisplayMemberPath="DisplayMember"    
                              SelectionChanged="lstBook_SelectionChanged"
                              />
+
+                    <ListBox x:Name="lstMatchingWords"
+                             Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2"
+                             Margin="5,5,0,0"
+                             ItemsSource="{Binding Path=MatchingWords}"
+                             DisplayMemberPath="Value"    
+                             SelectionChanged="lstMatchingWords_SelectionChanged"
+                             />
                     <!-- EndRow 1 -->
-
-                    <!-- Row 0 -->
-                    <!-- EndRow 0 -->
-                    
-                    <!-- Row 0 -->
-                    <!-- EndRow 0 -->
-
-                    <!-- Row 0 -->
-                    <!-- EndRow 0 -->
                 </Grid>
             </TabItem>
             
             <TabItem x:Name="tiAdd"
                      Header="Add"
                      >
-                Add
+                <Grid Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Row 0 -->
+                    <TextBlock Grid.Row="0" Grid.Column="0">Word:</TextBlock>
+                    <TextBox x:Name="txtWord"
+                             Grid.Row="0" Grid.Column="1"
+                             Margin="5,0,0,0"
+                             />
+                    <!-- EndRow 0 -->
+
+                    <!-- Row 1 -->
+                    <Button x:Name="cmdSaveWord"
+                            Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                            Margin="0,5,0,0"
+                            Content="Save"
+                            Click="cmdSaveWord_Click"
+                            />
+                    <!-- EndRow 1 -->
+                </Grid>
             </TabItem>
             
             <TabItem x:Name="tiSettings"
@@ -81,18 +115,13 @@
                              />
                     <!-- EndRow 0 -->
 
-                    <!-- Row 0 -->
+                    <!-- Row 1 -->
                     <Button x:Name="cmdSaveSettings"
                             Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                             Content="Save"
-                            Click="cmdSaveSettings_Click"/>
-                    <!-- EndRow 0 -->
-
-                    <!-- Row 0 -->
-                    <!-- EndRow 0 -->
-
-                    <!-- Row 0 -->
-                    <!-- EndRow 0 -->
+                            Click="cmdSaveSettings_Click"
+                            />
+                    <!-- EndRow 1 -->
                 </Grid>
             </TabItem>
         </TabControl>
