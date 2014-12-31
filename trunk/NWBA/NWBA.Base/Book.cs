@@ -15,86 +15,47 @@ namespace NWBA.Base
             public const string VERSION = "version";
             public const string BOOK_TITLE = "book_title";
             public const string WORDS = "words";
+            public const string WORD = "word";
         }
 
-        private int m_nId;
-        public int Id
-        {
-            get
-            {
-                return m_nId;
-            }
-            set 
-            {
-                m_nId = value;
-            }
-        }
-                
-        private string m_sVersion;
-        public string Version
-        {
-            get
-            {
-                return m_sVersion;
-            }
-            set 
-            {
-                m_sVersion = value;
-            }
-        }
+        private string m_sBookFilePath;
 
-        private string m_sTitle;
-        public string Title
-        {
-            get
-            {
-                return m_sTitle;
-            }
-            set 
-            {
-                m_sTitle = value;
-            }
-        }
-
-        private List<Word> m_arrWords;
-        public List<Word> Words
-        {
-            get
-            {
-                return m_arrWords;
-            }
-            set 
-            {
-                m_arrWords = value;
-            }
-        }
+        #region " Properties "
+        public int Id { get; set; }       
+        public string Version { get; set; }
+        public string Title { get; set; }
+        public List<Word> Words { get; set; }
+        #endregion
 
         public Book(string sBookFilePath)
         {
+            m_sBookFilePath = sBookFilePath;
+
             string sBookFileName = System.IO.Path.GetFileNameWithoutExtension(sBookFilePath);
-            XDocument xBook = XDocument.Load(sBookFilePath);
+            XDocument xBook = XDocument.Load(m_sBookFilePath);
 
             InitBook(xBook, int.Parse(sBookFileName.Substring(4)));
         }
 
         public Book(string sBookRootPath, int nId)
         {
-            string sBookFilePath = sBookRootPath + Consts.DIRECTORY_SEPARATOR + "book" + nId.ToString() + ".xml";
-            XDocument xBook = XDocument.Load(sBookFilePath);
+            m_sBookFilePath = sBookRootPath + Consts.DIRECTORY_SEPARATOR + "book" + nId.ToString() + ".xml";
+
+            XDocument xBook = XDocument.Load(m_sBookFilePath);
 
             InitBook(xBook, nId);
         }
 
         private void InitBook(XDocument xBook, int nId)
         {
-            m_nId = nId;
-            m_sVersion = xBook.Root.Element(Schema.VERSION).Value;
-            m_sTitle = xBook.Root.Element(Schema.BOOK_TITLE).Value;
+            this.Id = nId;
+            this.Version = xBook.Root.GetStringValue(Schema.VERSION);
+            this.Title = xBook.Root.GetStringValue(Schema.BOOK_TITLE);
 
-            m_arrWords = new List<Word>();
+            this.Words = new List<Word>();
             foreach (XElement xWord in xBook.Root.Element(Schema.WORDS).Elements())
             {
-                m_arrWords.Add(new Word(xWord));
+                this.Words.Add(new Word(xWord));
             }
         }
 
@@ -102,7 +63,7 @@ namespace NWBA.Base
         {
             List<Word> result = new List<Word>();
 
-            foreach(Word word in m_arrWords)
+            foreach(Word word in this.Words)
             {
                 if (word.Value.Contains(sWordPart))
                 {
@@ -111,6 +72,30 @@ namespace NWBA.Base
             }
 
             return result;
+        }
+
+        public void AddWord(Word oWord)
+        {
+            this.Words.Add(oWord);
+        }
+
+        public void Save()
+        {
+            XDocument xBook = new XDocument();
+            XElement xRoot = new XElement(Schema.ROOT);
+            XElement xWords = new XElement(Schema.WORDS);
+
+            xRoot.Add(new XElement(Schema.VERSION, this.Version));
+            xRoot.Add(new XElement(Schema.BOOK_TITLE, this.Title));
+
+            foreach (Word item in this.Words)
+            {
+                xWords.Add(item.GetWordDocument());
+            }
+            xRoot.Add(xWords);
+
+            xBook.Add(xRoot);
+            xBook.Save(m_sBookFilePath);
         }
     }
 }

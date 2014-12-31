@@ -14,21 +14,13 @@ namespace NWBA.Base
             public const string ROOT = "root";
 
             public const string BOOK_PATH = "book_path";
+            public const string LAST_BOOK_ID = "last_book_id";
         }
 
-        private string m_sBookPath = "";
-
-        public string BookPath
-        {
-            get 
-            {
-                return m_sBookPath;
-            }
-            set
-            {
-                m_sBookPath = value;
-            }
-        }
+        #region " Properties "
+        public int LastBookId { get; set; }
+        public string BookPath { get; set; }
+        #endregion
 
         private string GetSettingsFilePath()
         {
@@ -41,25 +33,26 @@ namespace NWBA.Base
 
             if (!File.Exists(sSettingsFilePath))
             {
-                SaveSettings();
+                Save();
                 return false;
             }
 
             XDocument xSettings = XDocument.Load(sSettingsFilePath);
-            this.BookPath = xSettings.Root.Element(Schema.BOOK_PATH).Value;
+            this.BookPath = xSettings.Root.GetStringValue(Schema.BOOK_PATH);
+            this.LastBookId = int.Parse(xSettings.Root.GetStringValue(Schema.LAST_BOOK_ID));
             // TODO: Add the other setting fields.
 
             return true;
         }
 
-        public void SaveSettings()
+        public void Save()
         {
             string sSettingsFilePath = GetSettingsFilePath();
             XDocument xSettings = new XDocument();
             XElement xRoot = new XElement(Schema.ROOT);
 
             xRoot.Add(new XElement(Schema.BOOK_PATH, this.BookPath));
-            // TODO: Add the other setting fields.
+            xRoot.Add(new XElement(Schema.LAST_BOOK_ID, this.LastBookId));
 
             xSettings.Add(xRoot);
             xSettings.Save(sSettingsFilePath);
