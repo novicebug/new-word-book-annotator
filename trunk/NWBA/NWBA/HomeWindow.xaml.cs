@@ -63,7 +63,12 @@ namespace NWBA
         private void LoadBookList()
         {
             string sBookRootPath = GetBookRootPath();
-            string[] books = Directory.GetFiles(sBookRootPath);
+            string[] books = new string[] { };
+
+            if (Directory.Exists(sBookRootPath))
+            {
+                books = Directory.GetFiles(sBookRootPath);
+            }
 
             this.BookList.Add(new ValueItem("---ALL---", 0));
 
