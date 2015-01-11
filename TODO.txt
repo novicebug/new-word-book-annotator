@@ -16,3 +16,7 @@
 - Add sorting of searched words (return top 10 for example).
 
 - Allow deleting of words.
+
+- Add button for word addition.
+
+- Add binding for current Word on Home page and on Add/Edit page. Probably the HomeWindow needs to implement INotifyPropertyChanged and raise the event when setting the CurrentWord property.
