@@ -94,6 +94,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="App.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -104,6 +105,14 @@
     <ProjectReference Include="..\NWBA.Base\NWBA.Base.csproj">
       <Project>{111B675C-7F56-4B60-9AFC-963F48EAB384}</Project>
       <Name>NWBA.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NWBA.Business\NWBA.Business.csproj">
+      <Project>{D28D6D4D-A7F5-45B8-BDCB-960EDF4C117D}</Project>
+      <Name>NWBA.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NWBA.Data\NWBA.Data.csproj">
+      <Project>{7A913EFF-D676-4D21-B47A-2393F1C3A66E}</Project>
+      <Name>NWBA.Data</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
+using System.Data;
 
 namespace NWBA.Base
 {
@@ -16,6 +17,16 @@ namespace NWBA.Base
             }
 
             return null;
+        }
+
+        public static bool HasTables(this DataSet value)
+        {
+            return value.Tables.Count > 0;
+        }
+
+        public static bool HasRows(this DataTable value)
+        {
+            return value.Rows.Count > 0;
         }
     }
 }

@@ -9,6 +9,7 @@ namespace NWBA.Base
     {
         public const string DIRECTORY_SEPARATOR = "\\";
 
+        public const string CONNECTION_STRING_NAME = "dbNWBA";
         public const string SETTINGS_FILE_NAME = "settings.xml";
         public const string BOOK_DIRECTORY_PATH = "NWBA_ROOT";
     }

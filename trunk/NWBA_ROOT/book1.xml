@@ -1,12 +1,6 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <version>20150104</version>
   <book_title>Code Complete</book_title>
-  <words>
-    <word>
-      <value>demo</value>
-      <pronunciation>[demo]</pronunciation>
-      <page_location>101 (q1); 140 (q3)</page_location>
-    </word>
-  </words>
+  <words></words>
 </root>
