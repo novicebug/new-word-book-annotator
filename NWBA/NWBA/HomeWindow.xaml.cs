@@ -25,11 +25,11 @@ namespace NWBA
     /// </summary>
     public partial class HomeWindow : Window
     {
-        private Settings m_oSettings;
-        private _Book m_oCurrentBook;
-
+        #region Private Members
+        private SettingExtended m_oSettingExtended;
         private BookExtended m_oCurrentBookExtended;
         private WordExtended m_oCurrentWord;
+        #endregion
 
         #region " Properties "
         public ObservableCollection<ValueItem> BookList { get; set; }
@@ -45,9 +45,10 @@ namespace NWBA
 
             LayoutRoot.DataContext = this;
 
-            m_oSettings = new Settings();
+            m_oSettingExtended = new SettingExtended();
+            m_oSettingExtended.Load();
 
-            if (!m_oSettings.LoadSettings())
+            if (!m_oSettingExtended.LastBookId.HasValue)
             {
                 tiHome.IsEnabled = false;
                 tiAdd.IsEnabled = false;
@@ -59,34 +60,9 @@ namespace NWBA
             LoadSettingsTab();
         }
 
-        private string GetBookRootPath()
-        {
-            return m_oSettings.BookPath + Consts.DIRECTORY_SEPARATOR + Consts.BOOK_DIRECTORY_PATH;
-        }
-
         #region " Home Tab "
         private void LoadBookList()
         {
-            //string sBookRootPath = GetBookRootPath();
-            //string[] books = new string[] { };
-
-            //if (Directory.Exists(sBookRootPath))
-            //{
-            //    books = Directory.GetFiles(sBookRootPath);
-            //}
-
-            //this.BookList.Add(new ValueItem("---ALL---", 0));
-            
-            //foreach (string sBookFilePath in books)
-            //{
-            //    _Book oBook = new _Book(sBookFilePath);
-
-            //    this.BookList.Add(new ValueItem(oBook.Title, oBook.Id));
-            //}
-
-            //lstBook.SelectedValue = m_oSettings.LastBookId;
-
-
             ValueList oValueList = new ValueList();
             List<ValueItem> arrBooks = oValueList.GetBookList();
             
@@ -96,7 +72,7 @@ namespace NWBA
                 this.BookList.Add(item);
             }
 
-            lstBook.SelectedValue = m_oSettings.LastBookId;
+            lstBook.SelectedValue = m_oSettingExtended.LastBookId; 
         }
 
         private void LoadHomeTab()
@@ -141,8 +117,8 @@ namespace NWBA
 
                 SearchWords();
 
-                m_oSettings.LastBookId = nBookId;
-                m_oSettings.Save();
+                m_oSettingExtended.LastBookId = nBookId;
+                m_oSettingExtended.Save();
             }
         }
 
@@ -165,8 +141,8 @@ namespace NWBA
             lblWord.Text = m_oCurrentWord.Value;
             lblPronunciation.Text = m_oCurrentWord.Pronunciation;
             lblTranslation.Text = m_oCurrentWord.Translation;
-            // TODO:
             lblPageLocation.Text = "Page (Location): " + m_oCurrentWord.GetLocation(m_oCurrentBookExtended.BookId).PageLocation;
+            // TODO:
             //lblExamples.Text = oSelectedWord.Examples;
 
             lblExamplesLabel.Visibility = Visibility.Visible;
@@ -178,39 +154,24 @@ namespace NWBA
             {
                 return;
             }
-            
-            //int nWordId = (int)lstMatchingWords.SelectedValue;
-            //WordExtended oSelectedWord = new WordExtended();
-            //oSelectedWord.LoadWord(nWordId); 
-
-           // _Word oSelectedWord = (_Word)lstMatchingWords.SelectedValue;
-
-            if (m_oCurrentWord == null)
-            {
-                return;
-            }
 
             txtWord.Text = m_oCurrentWord.Value;
             txtPronunciation.Text = m_oCurrentWord.Pronunciation;
-            txtTranslation.Text = m_oCurrentWord.Translation;
-            // TODO:
-            //txtPageLocation.Text = oSelectedWord.PageLocation;
+            txtTranslation.Text = m_oCurrentWord.Translation;           
+            txtPageLocation.Text = m_oCurrentWord.GetLocation(m_oCurrentBookExtended.BookId).PageLocation;
+            // TODO: Examples
             //txtExamples.Text = oSelectedWord.Examples;
 
             tcMenu.SelectedItem = tiAdd;
-
-        //    m_oCurrentBookExtended.Words.Remove(oSelectedWord);
         }
         
         private void cmdDeleteWord_Click(object sender, RoutedEventArgs e)
         {
-            _Word oSelectedWord = (_Word)lstMatchingWords.SelectedValue;
-
-            if (oSelectedWord == null)
+            if (lstMatchingWords.SelectedValue == null)
             {
                 return;
             }
-
+            
             MessageBoxResult oResult = MessageBox.Show(
                 "Are you sure you want to delete this word?"
                 , "NWBA"
@@ -220,8 +181,8 @@ namespace NWBA
 
             if (oResult == MessageBoxResult.Yes)
             {
-                m_oCurrentBook.Words.Remove(oSelectedWord);
-                m_oCurrentBook.Save();
+                int nWordId = (int)lstMatchingWords.SelectedValue;
+                m_oCurrentBookExtended.DeleteWord(nWordId);
                 
                 SearchWords();
             }
@@ -235,7 +196,7 @@ namespace NWBA
             txtPronunciation.Text = m_oCurrentWord.Pronunciation;
             txtTranslation.Text = m_oCurrentWord.Translation;
             // TODO:
-            //txtPageLocation.Text = oSelectedWord.PageLocation;
+            txtPageLocation.Text = "";
             //txtExamples.Text = oSelectedWord.Examples;
 
             tcMenu.SelectedItem = tiAdd;
@@ -249,35 +210,17 @@ namespace NWBA
             {
                 return;
             }
-
-            //_Word oNewWord = new _Word();
+            
             m_oCurrentWord.Value = txtWord.Text;
             m_oCurrentWord.Pronunciation = txtPronunciation.Text;
             m_oCurrentWord.Translation = txtTranslation.Text;
-
-            //string sPageLocation = txtPageLocation.Text;
-            //string[] arrLocations = sPageLocation.Split(new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
-            //foreach (string item in arrLocations)
-            //{
-            //    string[] arrLocationParts = item.Split(new string[] { "(" }, StringSplitOptions.RemoveEmptyEntries);
-            //    Location oLocation = new Location();
-            //    oLocation.PageNbr = int.Parse(arrLocationParts[0]);
-            //    oLocation.PageLocation = arrLocationParts[1].Substring(0, arrLocationParts[1].Length - 1);
-            //}
             
-            m_oCurrentWord.Save(m_oCurrentBookExtended.BookId);
-
-            m_oCurrentWord.SaveLocation(
+            m_oCurrentWord.Save(
                 m_oCurrentBookExtended.BookId
                 , txtPageLocation.Text
                 );
-            //oNewWord.PageLocation = txtPageLocation.Text;
+            // TODO: Examples
             //oNewWord.Examples = txtExamples.Text;
-
-            //m_oCurrentBook.AddWord(oNewWord);
-            //m_oCurrentBook.Save();
-
-            //oNewWord.s
 
             tcMenu.SelectedItem = tiHome;
             SearchWords();
@@ -287,21 +230,19 @@ namespace NWBA
         #region " Settings Tab "
         private void LoadSettingsTab()
         {
-            txtBookPath.Text = m_oSettings.BookPath;
         }
 
         private void cmdSaveSettings_Click(object sender, RoutedEventArgs e)
         {
-            m_oSettings.BookPath = txtBookPath.Text;
             // TODO: Add other settings here before save.
 
-            m_oSettings.Save();
+            //m_oSettings.Save();
 
-            string sBookRootPath = GetBookRootPath();
-            if (!Directory.Exists(sBookRootPath))
-            {
-                Directory.CreateDirectory(sBookRootPath);
-            }
+            //string sBookRootPath = GetBookRootPath();
+            //if (!Directory.Exists(sBookRootPath))
+            //{
+            //    Directory.CreateDirectory(sBookRootPath);
+            //}
         }
         #endregion        
     }

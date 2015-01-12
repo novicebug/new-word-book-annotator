@@ -96,7 +96,10 @@ namespace NWBA.Business
             LoadLocations();
         }
 
-        public void Save(int nBookId)
+        public void Save(
+            int nBookId
+            , string sPageLocation
+            )
         {
             int nNewWordId = 0;
 
@@ -109,22 +112,29 @@ namespace NWBA.Business
                 );
 
             this.WordId = nNewWordId;
-        }
 
-        public void SaveLocation(
-            int nBookId
-            , string sPageLocation
-            )
-        {
             Location oLocation = GetLocation(nBookId);
-                      
+
             oLocation.PageLocation = sPageLocation;
             oLocation.Save();
         }
 
+        //public void SaveLocation(
+        //    int nBookId
+        //    , string sPageLocation
+        //    )
+        //{
+        //    Location oLocation = GetLocation(nBookId);
+                      
+        //    oLocation.PageLocation = sPageLocation;
+        //    oLocation.Save();
+        //}
+
         public void LoadLocations()
         {
             DataTable dtBookIdList = m_oWord.GetWordBookIdList(this.WordId);
+
+            this.Locations.Clear();
 
             foreach (DataRow item in dtBookIdList.Rows)
             {
@@ -155,16 +165,6 @@ namespace NWBA.Business
             }
 
             return oResult;
-        }
-
-        public void AddLocation(Location oLocation)
-        {
-            this.Locations = this.Locations.Where(
-                p => 
-                    p.BookId == oLocation.BookId 
-                    && p.WordId == oLocation.WordId
-                ).ToList();
-            this.Locations.Add(oLocation);
         }
         #endregion
     }
