@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Book.cs" />
+    <Compile Include="Setting.cs" />
     <Compile Include="Location.cs" />
     <Compile Include="ValueList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

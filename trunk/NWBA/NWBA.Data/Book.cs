@@ -45,7 +45,8 @@ namespace NWBA.Data
         public DataTable Get(int nBookId)
         {
             DataSet dsResult;
-            dsResult = ExecuteDataSet(CommandType.StoredProcedure
+            dsResult = ExecuteDataSet(
+                CommandType.StoredProcedure
                 , "[dbo].[GetBook]"
                 , new SqlCommandParameter("@nBookId", SqlDbType.Int, nBookId)
                 );
@@ -62,7 +63,8 @@ namespace NWBA.Data
         public DataTable GetWordIdList(int nBookId)
         {
             DataSet dsResult;
-            dsResult = ExecuteDataSet(CommandType.StoredProcedure
+            dsResult = ExecuteDataSet(
+                CommandType.StoredProcedure
                 , "[dbo].[GetBookWordIdList]"
                 , new SqlCommandParameter("@nBookId", SqlDbType.Int, nBookId)
                 );
@@ -82,7 +84,8 @@ namespace NWBA.Data
             )
         {
             DataSet dsResult;
-            dsResult = ExecuteDataSet(CommandType.StoredProcedure
+            dsResult = ExecuteDataSet(
+                CommandType.StoredProcedure
                 , "[dbo].[GetMatchingWordIdList]"
                 , new SqlCommandParameter("@nBookId", SqlDbType.Int, nBookId)
                 , new SqlCommandParameter("@sWordPart", SqlDbType.NVarChar, sWordPart)
@@ -95,6 +98,19 @@ namespace NWBA.Data
             }
 
             return null;
+        }
+
+        public void DeleteWord(
+            int nBookId
+            , int nWordId
+            )
+        {
+            ExecuteNonQuery(
+                CommandType.StoredProcedure
+                , "[dbo].[DeleteWordFromBook]"
+                , new SqlCommandParameter("@nBookId", SqlDbType.Int, nBookId)
+                , new SqlCommandParameter("@nWordId", SqlDbType.Int, nWordId)
+                );
         }
         #endregion
     }

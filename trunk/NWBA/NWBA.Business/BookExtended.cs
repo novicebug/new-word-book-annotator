@@ -111,7 +111,15 @@ namespace NWBA.Business
             }
         }
 
-        
+        public void DeleteWord(int nWordId)
+        {
+            this.Words = this.Words.Where(p => p.WordId != nWordId).ToList();
+           
+            m_oBook.DeleteWord(
+                this.BookId
+                , nWordId
+                );
+        }
         #endregion
     }
 }
