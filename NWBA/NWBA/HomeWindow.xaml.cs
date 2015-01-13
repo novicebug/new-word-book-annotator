@@ -26,6 +26,8 @@ namespace NWBA
     public partial class HomeWindow : Window
     {
         #region Private Members
+        private const int MAX_EXAMPLES_COUNT = 6;
+
         private Setting m_oSetting;
         private Book m_oCurrentBook;
         private Word m_oCurrentWord;
@@ -144,7 +146,12 @@ namespace NWBA
             lblPageLocation.Text = "Page (Location): " + m_oCurrentWord.GetLocation(m_oCurrentBook.BookId).PageLocation;
             // TODO:
             //lblExamples.Text = oSelectedWord.Examples;
-
+            StringBuilder sbExamples = new StringBuilder();
+            foreach (Example item in m_oCurrentWord.Examples)
+            {
+                sbExamples.AppendLine(item.Value);
+            }
+            lblExamples.Text = sbExamples.ToString();
             lblExamplesLabel.Visibility = Visibility.Visible;
         }
 
@@ -161,6 +168,11 @@ namespace NWBA
             txtPageLocation.Text = m_oCurrentWord.GetLocation(m_oCurrentBook.BookId).PageLocation;
             // TODO: Examples
             //txtExamples.Text = oSelectedWord.Examples;
+            for (int nLoop = 1; nLoop <= m_oCurrentWord.Examples.Count; nLoop++)
+            {
+                TextBox txtCurrentExample = (TextBox)tiAdd.FindName("txtExample" + nLoop.ToString());
+                txtCurrentExample.Text = m_oCurrentWord.Examples[nLoop - 1].Value;
+            }
 
             tcMenu.SelectedItem = tiAdd;
         }
@@ -214,8 +226,30 @@ namespace NWBA
             m_oCurrentWord.Value = txtWord.Text;
             m_oCurrentWord.Pronunciation = txtPronunciation.Text;
             m_oCurrentWord.Translation = txtTranslation.Text;
+
+            m_oCurrentWord.Examples.Clear();
+            for (int nLoop = 1; nLoop <= MAX_EXAMPLES_COUNT; nLoop++)
+            {
+                TextBox txtCurrentExample = (TextBox)tiAdd.FindName("txtExample" + nLoop.ToString());
+
+                if (string.IsNullOrEmpty(txtCurrentExample.Text))
+                {
+                    continue;
+                }
+
+                Example oExample = new Example();
+                oExample.Value = txtCurrentExample.Text;
+                oExample.OrderNbr = nLoop;
+                oExample.WordId = m_oCurrentWord.WordId;
+                oExample.IsPrintIn = false;
+
+                m_oCurrentWord.Examples.Add(oExample);
+            }
+
+            Location oLocation = m_oCurrentWord.GetLocation(m_oCurrentBook.BookId);
+            oLocation.PageLocation = txtPageLocation.Text;
             
-            m_oCurrentWord.Save(
+            m_oCurrentWord.SaveInBook(
                 m_oCurrentBook.BookId
                 , txtPageLocation.Text
                 );

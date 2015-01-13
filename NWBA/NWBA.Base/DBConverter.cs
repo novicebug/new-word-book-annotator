@@ -76,6 +76,29 @@ namespace NWBA.Base
 
             return (string)oValue;
         }
+
+        public static bool DBValueToBool(object oValue)
+        {
+            if (oValue == null
+                || oValue == DBNull.Value
+                )
+            {
+                return false;
+            }
+
+            return (bool)oValue;
+        }
+        public static bool? DBValueToBoolNullable(object oValue)
+        {
+            if (oValue == null
+                || oValue == DBNull.Value
+                )
+            {
+                return null;
+            }
+
+            return (bool)oValue;
+        }
         #endregion
 
         #region .NET to DB Value
@@ -108,6 +131,18 @@ namespace NWBA.Base
             if (sData != null)
             {
                 return sData;
+            }
+            else
+            {
+                return DBNull.Value;
+            }
+        }
+
+        public static object BoolToDBValue(bool? bData)
+        {
+            if (bData != null)
+            {
+                return bData;
             }
             else
             {
