@@ -7,7 +7,7 @@ using NWBA.Base;
 
 namespace NWBA.Business
 {
-    public class BookExtended: NWBA.Base.Business
+    public class Book: NWBA.Base.Business
     {
         public class Schema : NWBA.Data.Book.Schema { }
 
@@ -17,12 +17,12 @@ namespace NWBA.Business
         #endregion
 
         #region Constructors
-        public BookExtended()
+        public Book()
             : base()
         {
             m_oBook = new NWBA.Data.Book(base.ConnectionString);
             
-            this.Words = new List<WordExtended>();
+            this.Words = new List<Word>();
 
             Load(0);
         }
@@ -73,7 +73,7 @@ namespace NWBA.Business
             }
         }
 
-        public List<WordExtended> Words { get; set; }
+        public List<Word> Words { get; set; }
         #endregion
         
         #region Public Methods
@@ -104,7 +104,7 @@ namespace NWBA.Business
 
             foreach (DataRow row in dtWordId.Rows)
             {
-                WordExtended oWord = new WordExtended();
+                Word oWord = new Word();
                 oWord.Load(DBConverter.DBValueToInt(row[Schema.WordIdList.WordId]));
 
                 this.Words.Add(oWord);

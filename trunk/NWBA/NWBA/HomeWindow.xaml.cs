@@ -26,14 +26,14 @@ namespace NWBA
     public partial class HomeWindow : Window
     {
         #region Private Members
-        private SettingExtended m_oSettingExtended;
-        private BookExtended m_oCurrentBookExtended;
-        private WordExtended m_oCurrentWord;
+        private Setting m_oSetting;
+        private Book m_oCurrentBook;
+        private Word m_oCurrentWord;
         #endregion
 
         #region " Properties "
         public ObservableCollection<ValueItem> BookList { get; set; }
-        public ObservableCollection<WordExtended> MatchingWords { get; set; }
+        public ObservableCollection<Word> MatchingWords { get; set; }
         #endregion
 
         public HomeWindow()
@@ -41,14 +41,14 @@ namespace NWBA
             InitializeComponent();
 
             this.BookList = new ObservableCollection<ValueItem>();
-            this.MatchingWords = new ObservableCollection<WordExtended>();
+            this.MatchingWords = new ObservableCollection<Word>();
 
             LayoutRoot.DataContext = this;
 
-            m_oSettingExtended = new SettingExtended();
-            m_oSettingExtended.Load();
+            m_oSetting = new Setting();
+            m_oSetting.Load();
 
-            if (!m_oSettingExtended.LastBookId.HasValue)
+            if (!m_oSetting.LastBookId.HasValue)
             {
                 tiHome.IsEnabled = false;
                 tiAdd.IsEnabled = false;
@@ -72,7 +72,7 @@ namespace NWBA
                 this.BookList.Add(item);
             }
 
-            lstBook.SelectedValue = m_oSettingExtended.LastBookId; 
+            lstBook.SelectedValue = m_oSetting.LastBookId; 
         }
 
         private void LoadHomeTab()
@@ -84,14 +84,14 @@ namespace NWBA
         {
             this.MatchingWords.Clear();
 
-            if (m_oCurrentBookExtended.IsNewBookIn)
+            if (m_oCurrentBook.IsNewBookIn)
             {
                 return;
             }
 
-            m_oCurrentBookExtended.FilterWords(txtSearch.Text);
+            m_oCurrentBook.FilterWords(txtSearch.Text);
                        
-            foreach (WordExtended item in m_oCurrentBookExtended.Words)
+            foreach (Word item in m_oCurrentBook.Words)
             {
                 this.MatchingWords.Add(item);
             }
@@ -111,14 +111,14 @@ namespace NWBA
             {
                 tiAdd.IsEnabled = true;
 
-                BookExtended oBook = new BookExtended();
+                Book oBook = new Book();
                 oBook.Load(nBookId);
-                m_oCurrentBookExtended = oBook;
+                m_oCurrentBook = oBook;
 
                 SearchWords();
 
-                m_oSettingExtended.LastBookId = nBookId;
-                m_oSettingExtended.Save();
+                m_oSetting.LastBookId = nBookId;
+                m_oSetting.Save();
             }
         }
 
@@ -135,13 +135,13 @@ namespace NWBA
             }
 
             int nWordId = (int)lstMatchingWords.SelectedValue;
-            m_oCurrentWord = new WordExtended();
+            m_oCurrentWord = new Word();
             m_oCurrentWord.Load(nWordId);
 
             lblWord.Text = m_oCurrentWord.Value;
             lblPronunciation.Text = m_oCurrentWord.Pronunciation;
             lblTranslation.Text = m_oCurrentWord.Translation;
-            lblPageLocation.Text = "Page (Location): " + m_oCurrentWord.GetLocation(m_oCurrentBookExtended.BookId).PageLocation;
+            lblPageLocation.Text = "Page (Location): " + m_oCurrentWord.GetLocation(m_oCurrentBook.BookId).PageLocation;
             // TODO:
             //lblExamples.Text = oSelectedWord.Examples;
 
@@ -158,7 +158,7 @@ namespace NWBA
             txtWord.Text = m_oCurrentWord.Value;
             txtPronunciation.Text = m_oCurrentWord.Pronunciation;
             txtTranslation.Text = m_oCurrentWord.Translation;           
-            txtPageLocation.Text = m_oCurrentWord.GetLocation(m_oCurrentBookExtended.BookId).PageLocation;
+            txtPageLocation.Text = m_oCurrentWord.GetLocation(m_oCurrentBook.BookId).PageLocation;
             // TODO: Examples
             //txtExamples.Text = oSelectedWord.Examples;
 
@@ -182,7 +182,7 @@ namespace NWBA
             if (oResult == MessageBoxResult.Yes)
             {
                 int nWordId = (int)lstMatchingWords.SelectedValue;
-                m_oCurrentBookExtended.DeleteWord(nWordId);
+                m_oCurrentBook.DeleteWord(nWordId);
                 
                 SearchWords();
             }
@@ -190,7 +190,7 @@ namespace NWBA
 
         private void cmdAddWord_Click(object sender, RoutedEventArgs e)
         {
-            m_oCurrentWord = new WordExtended();
+            m_oCurrentWord = new Word();
 
             txtWord.Text = m_oCurrentWord.Value;
             txtPronunciation.Text = m_oCurrentWord.Pronunciation;
@@ -216,7 +216,7 @@ namespace NWBA
             m_oCurrentWord.Translation = txtTranslation.Text;
             
             m_oCurrentWord.Save(
-                m_oCurrentBookExtended.BookId
+                m_oCurrentBook.BookId
                 , txtPageLocation.Text
                 );
             // TODO: Examples
