@@ -7,7 +7,7 @@ using NWBA.Base;
 
 namespace NWBA.Business
 {
-    public class SettingExtended: NWBA.Base.Business
+    public class Setting: NWBA.Base.Business
     {
         public class Schema : NWBA.Data.Setting.Schema { }
 
@@ -17,7 +17,7 @@ namespace NWBA.Business
         #endregion
 
         #region Constructors
-        public SettingExtended()
+        public Setting()
             : base()
         {
             m_oSetting = new NWBA.Data.Setting(base.ConnectionString);

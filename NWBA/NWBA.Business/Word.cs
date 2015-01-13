@@ -7,7 +7,7 @@ using NWBA.Base;
 
 namespace NWBA.Business
 {
-    public class WordExtended: NWBA.Base.Business
+    public class Word: NWBA.Base.Business
     {
         public class Schema : NWBA.Data.Word.Schema { }
 
@@ -17,7 +17,7 @@ namespace NWBA.Business
         #endregion
 
         #region Constructors
-        public WordExtended()
+        public Word()
             : base()
         {
             m_oWord = new NWBA.Data.Word(base.ConnectionString);
