@@ -23,6 +23,7 @@ namespace NWBA.Business
             m_oWord = new NWBA.Data.Word(base.ConnectionString);
 
             this.Locations = new List<Location>();
+            this.Examples = new List<Example>();
             
             Load(0);
         }
@@ -78,6 +79,8 @@ namespace NWBA.Business
         }
 
         public List<Location> Locations { get; set; }
+
+        public List<Example> Examples { get; set; }
         #endregion
         
         #region Public Methods
@@ -94,9 +97,10 @@ namespace NWBA.Business
             }
 
             LoadLocations();
+            LoadExamples();
         }
 
-        public void Save(
+        public void SaveInBook(
             int nBookId
             , string sPageLocation
             )
@@ -114,21 +118,14 @@ namespace NWBA.Business
             this.WordId = nNewWordId;
 
             Location oLocation = GetLocation(nBookId);
-
             oLocation.PageLocation = sPageLocation;
             oLocation.Save();
-        }
 
-        //public void SaveLocation(
-        //    int nBookId
-        //    , string sPageLocation
-        //    )
-        //{
-        //    Location oLocation = GetLocation(nBookId);
-                      
-        //    oLocation.PageLocation = sPageLocation;
-        //    oLocation.Save();
-        //}
+            foreach (Example item in this.Examples)
+            {
+                item.Save();
+            }
+        }
 
         public void LoadLocations()
         {
@@ -148,6 +145,21 @@ namespace NWBA.Business
             }
         }
 
+        public void LoadExamples()
+        {
+            DataTable dtExampleIdList = m_oWord.GetWordExampleIdList(this.WordId);
+
+            this.Examples.Clear();
+
+            foreach (DataRow item in dtExampleIdList.Rows)
+            {
+                Example oExample = new Example();
+                oExample.Load(DBConverter.DBValueToInt(item[Schema.WordExampleIdList.ExampleId]));
+
+                this.Examples.Add(oExample);
+            }
+        }
+
         public Location GetLocation(int nBookId)
         {
             Location oResult = (
@@ -162,6 +174,44 @@ namespace NWBA.Business
                 oResult = new Location();
                 oResult.BookId = nBookId;
                 oResult.WordId = this.WordId;
+                oResult.PageLocation = "";
+            }
+
+            return oResult;
+        }
+
+        public void AddLocation(Location oNewLocation)
+        {
+            if (oNewLocation.WordId != this.WordId)
+            {
+                return;
+            }
+
+            this.Locations = this.Locations.Where(
+                p => 
+                    p.BookId != oNewLocation.BookId
+                    && p.WordId == oNewLocation.WordId
+                ).ToList();
+
+            this.Locations.Add(oNewLocation);
+        }
+        
+        public Example GetExample(int nOrderNbr)
+        {
+            Example oResult = (
+                from item in this.Examples
+                where item.WordId == this.WordId
+                    && item.OrderNbr == nOrderNbr
+                select item
+                ).FirstOrDefault();
+
+            if (oResult == null)
+            {
+                oResult = new Example();
+                oResult.WordId = this.WordId;
+                oResult.Value = "";
+                oResult.IsPrintIn = false;
+                oResult.OrderNbr = nOrderNbr;
             }
 
             return oResult;

@@ -21,3 +21,5 @@
 - Remove the 'Extended' from the business classes and use namespaces carefully, i.e. use Data namespace, only inside the class.
 
 - Allow adding a searched word to a book. E.g. searching in all books and find a word by clicking a button go to Add/Edit so you can provide another location in the newly selected book.
+
+- In the SaveExample you should not delete the previous examples for the word, because this keeps the last saved only.

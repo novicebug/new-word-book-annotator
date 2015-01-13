@@ -12,207 +12,261 @@
             <TabItem x:Name="tiHome"
                      Header="Home"                     
                      >
-                <Grid Margin="10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="200"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="100"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <Grid Margin="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="100"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
 
-                    <!-- Row 0 -->
-                    <TextBlock Grid.Row="0" Grid.Column="0"
-                               Text="Books:"
-                               />
-                    <TextBlock Grid.Row="0" Grid.Column="1"
-                               Margin="5,0,0,0"
-                               Text="Search:"
-                               />
-                    <TextBox x:Name="txtSearch"
-                             Grid.Row="0" Grid.Column="2"
-                             Margin="5,0,0,0"
-                             TextChanged="txtSearch_TextChanged"
-                             />                          
-                    <!-- EndRow 0 -->
+                        <!-- Row 0 -->
+                        <TextBlock Grid.Row="0" Grid.Column="0"
+                                   Text="Books:"
+                                   />
+                        <TextBlock Grid.Row="0" Grid.Column="1"
+                                   Margin="5,0,0,0"
+                                   Text="Search:"
+                                   />
+                        <TextBox x:Name="txtSearch"
+                                 Grid.Row="0" Grid.Column="2"
+                                 Margin="5,0,0,0"
+                                 TextChanged="txtSearch_TextChanged"
+                                 />                          
+                        <!-- EndRow 0 -->
 
-                    <!-- Row 1 -->                    
-                    <ListBox x:Name="lstBook"
-                             Grid.Row="1" Grid.RowSpan="20" Grid.Column="0"
-                             Margin="0,5,0,0"
-                             ItemsSource="{Binding Path=BookList}"
-                             SelectedValuePath="ValueMember"
-                             DisplayMemberPath="DisplayMember"    
-                             SelectionChanged="lstBook_SelectionChanged"
-                             />
+                        <!-- Row 1 -->                    
+                        <ListBox x:Name="lstBook"
+                                 Grid.Row="1" Grid.RowSpan="20" Grid.Column="0"
+                                 Margin="0,5,0,0"
+                                 ItemsSource="{Binding Path=BookList}"
+                                 SelectedValuePath="ValueMember"
+                                 DisplayMemberPath="DisplayMember"    
+                                 SelectionChanged="lstBook_SelectionChanged"
+                                 />
 
-                    <ListBox x:Name="lstMatchingWords"
-                             Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
-                             Margin="5,5,0,0"
-                             ItemsSource="{Binding Path=MatchingWords}"
-                             SelectedValuePath="WordId"
-                             DisplayMemberPath="Value"    
-                             SelectionChanged="lstMatchingWords_SelectionChanged"
-                             />
-                    <!-- EndRow 1 -->
+                        <ListBox x:Name="lstMatchingWords"
+                                 Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
+                                 Margin="5,5,0,0"
+                                 ItemsSource="{Binding Path=MatchingWords}"
+                                 SelectedValuePath="WordId"
+                                 DisplayMemberPath="Value"    
+                                 SelectionChanged="lstMatchingWords_SelectionChanged"
+                                 />
+                        <!-- EndRow 1 -->
 
-                    <!-- Row 2 -->
-                    <TextBlock x:Name="lblWord"
-                               Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"
-                               Margin="5,10,0,5"
-                               FontSize="20"
-                               />
-                    <!-- EndRow 2 -->
+                        <!-- Row 2 -->
+                        <TextBlock x:Name="lblWord"
+                                   Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"
+                                   Margin="5,10,0,5"
+                                   FontSize="20"
+                                   />
+                        <!-- EndRow 2 -->
 
-                    <!-- Row 3 -->
-                    <TextBlock x:Name="lblPronunciation"
-                               Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"
-                               Margin="5,0,0,5"
-                               FontSize="15"
-                               />
-                    <!-- EndRow 3 -->
+                        <!-- Row 3 -->
+                        <TextBlock x:Name="lblPronunciation"
+                                   Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"
+                                   Margin="5,0,0,5"
+                                   FontSize="15"
+                                   />
+                        <!-- EndRow 3 -->
 
-                    <!-- Row 4 -->
-                    <TextBlock x:Name="lblTranslation"
-                               Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2"
-                               Margin="5,0,0,5"
-                               />
-                    <!-- EndRow 4 -->
+                        <!-- Row 4 -->
+                        <TextBlock x:Name="lblTranslation"
+                                   Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2"
+                                   Margin="5,0,0,5"
+                                   />
+                        <!-- EndRow 4 -->
 
-                    <!-- Row 5 -->
-                    <TextBlock x:Name="lblPageLocation"
-                               Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2"
-                               Margin="5,0,0,5"
-                               />
-                    <!-- EndRow 5 -->
+                        <!-- Row 5 -->
+                        <TextBlock x:Name="lblPageLocation"
+                                   Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2"
+                                   Margin="5,0,0,5"
+                                   />
+                        <!-- EndRow 5 -->
 
-                    <!-- Row 6 -->
-                    <TextBlock x:Name="lblExamplesLabel"
-                               Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2"
-                               Margin="5,10,0,5"
-                               Text="Examples:"
-                               Visibility="Collapsed"
-                               />
-                    <!-- EndRow 6 -->
+                        <!-- Row 6 -->
+                        <TextBlock x:Name="lblExamplesLabel"
+                                   Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2"
+                                   Margin="5,10,0,5"
+                                   Text="Examples:"
+                                   Visibility="Collapsed"
+                                   />
+                        <!-- EndRow 6 -->
 
-                    <!-- Row 7 -->
-                    <TextBlock x:Name="lblExamples"
-                               Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2"
-                               Margin="5,0,0,5"
-                               TextWrapping="Wrap"
-                               />
-                    <!-- EndRow 7 -->
+                        <!-- Row 7 -->
+                        <TextBlock x:Name="lblExamples"
+                                   Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2"
+                                   Margin="5,0,0,5"
+                                   TextWrapping="Wrap"
+                                   />
+                        <!-- EndRow 7 -->
 
-                    <!-- Row 8 -->
-                    <Button x:Name="cmdEditWord"
-                            Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2"
-                            Margin="5,0,0,5"
-                            Content="Edit"
-                            Click="cmdEditWord_Click"
-                            />
-                    <!-- EndRow 8 -->
+                        <!-- Row 8 -->
+                        <Button x:Name="cmdEditWord"
+                                Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2"
+                                Margin="5,0,0,5"
+                                Content="Edit"
+                                Click="cmdEditWord_Click"
+                                />
+                        <!-- EndRow 8 -->
 
-                    <!-- Row 9 -->
-                    <Button x:Name="cmdDeleteWord"
-                            Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="2"
-                            Margin="5,0,0,5"
-                            Content="Delete"
-                            Click="cmdDeleteWord_Click"
-                            />
-                    <!-- EndRow 9 -->
+                        <!-- Row 9 -->
+                        <Button x:Name="cmdDeleteWord"
+                                Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="2"
+                                Margin="5,0,0,5"
+                                Content="Delete"
+                                Click="cmdDeleteWord_Click"
+                                />
+                        <!-- EndRow 9 -->
 
-                    <!-- Row 10 -->
-                    <Button x:Name="cmdAddWord"
-                            Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="2"
-                            Margin="5,0,0,5"
-                            Content="Add"
-                            Click="cmdAddWord_Click"
-                            />
-                    <!-- EndRow 10 -->
-                </Grid>
+                        <!-- Row 10 -->
+                        <Button x:Name="cmdAddWord"
+                                Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="2"
+                                Margin="5,0,0,5"
+                                Content="Add"
+                                Click="cmdAddWord_Click"
+                                />
+                        <!-- EndRow 10 -->
+                    </Grid>
+                </ScrollViewer>
             </TabItem>
             
             <TabItem x:Name="tiAdd"
                      Header="Add/Edit"
                      >
-                <Grid Margin="10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <Grid Margin="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
 
-                    <!-- Row 0 -->
-                    <TextBlock Grid.Row="0" Grid.Column="0">Word:</TextBlock>
-                    <TextBox x:Name="txtWord"
-                             Grid.Row="0" Grid.Column="1"
-                             Margin="5,0,0,5"
-                             />
-                    <!-- EndRow 0 -->
+                        <!-- Row 0 -->
+                        <TextBlock Grid.Row="0" Grid.Column="0">Word:</TextBlock>
+                        <TextBox x:Name="txtWord"
+                                 Grid.Row="0" Grid.Column="1"
+                                 Margin="5,0,0,5"
+                                 />
+                        <!-- EndRow 0 -->
 
-                    <!-- Row 1 -->
-                    <TextBlock Grid.Row="1" Grid.Column="0">Pronunciation:</TextBlock>
-                    <TextBox x:Name="txtPronunciation"
-                             Grid.Row="1" Grid.Column="1"
-                             Margin="5,0,0,5"
-                             />
-                    <!-- EndRow 1 -->
+                        <!-- Row 1 -->
+                        <TextBlock Grid.Row="1" Grid.Column="0">Pronunciation:</TextBlock>
+                        <TextBox x:Name="txtPronunciation"
+                                 Grid.Row="1" Grid.Column="1"
+                                 Margin="5,0,0,5"
+                                 />
+                        <!-- EndRow 1 -->
 
-                    <!-- Row 2 -->
-                    <TextBlock Grid.Row="2" Grid.Column="0">Translation:</TextBlock>
-                    <TextBox x:Name="txtTranslation"
-                             Grid.Row="2" Grid.Column="1"
-                             Margin="5,0,0,5"
-                             AcceptsReturn="True"
-                             />
-                    <!-- EndRow 2 -->
+                        <!-- Row 2 -->
+                        <TextBlock Grid.Row="2" Grid.Column="0">Translation:</TextBlock>
+                        <TextBox x:Name="txtTranslation"
+                                 Grid.Row="2" Grid.Column="1"
+                                 Margin="5,0,0,5"
+                                 AcceptsReturn="True"
+                                 />
+                        <!-- EndRow 2 -->
 
-                    <!-- Row 3 -->
-                    <TextBlock Grid.Row="3" Grid.Column="0">Page(Location):</TextBlock>
-                    <TextBox x:Name="txtPageLocation"
-                             Grid.Row="3" Grid.Column="1"
-                             Margin="5,0,0,5"
-                             />
-                    <!-- EndRow 3 -->
-                    
-                    <!-- Row 4 -->
-                    <TextBlock Grid.Row="4" Grid.Column="0">Examples:</TextBlock>
-                    <TextBox x:Name="txtExamples"
-                             Grid.Row="4" Grid.Column="1"
-                             Margin="5,0,0,5"
-                             AcceptsReturn="True"
-                             />
-                    <!-- EndRow 4 -->
-                    
-                    <!-- Row 5 -->
-                    <Button x:Name="cmdSaveWord"
-                            Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
-                            Content="Save"
-                            Click="cmdSaveWord_Click"
-                            />
-                    <!-- EndRow 5 -->
-                </Grid>
+                        <!-- Row 3 -->
+                        <TextBlock Grid.Row="3" Grid.Column="0">Page(Location):</TextBlock>
+                        <TextBox x:Name="txtPageLocation"
+                                 Grid.Row="3" Grid.Column="1"
+                                 Margin="5,0,0,5"
+                                 />
+                        <!-- EndRow 3 -->
+                        
+                        <!-- Row 4 -->
+                        <TextBlock Grid.Row="4" Grid.Column="0">Example 1:</TextBlock>
+                        <TextBox x:Name="txtExample1"
+                                 Grid.Row="4" Grid.Column="1"
+                                 Margin="5,0,0,5"
+                                 AcceptsReturn="True"
+                                 />
+                        <!-- EndRow 4 -->
+
+                        <!-- Row 5 -->
+                        <TextBlock Grid.Row="5" Grid.Column="0">Example 2:</TextBlock>
+                        <TextBox x:Name="txtExample2"
+                                 Grid.Row="5" Grid.Column="1"
+                                 Margin="5,0,0,5"
+                                 AcceptsReturn="True"
+                                 />
+                        <!-- EndRow 5 -->
+
+                        <!-- Row 6 -->
+                        <TextBlock Grid.Row="6" Grid.Column="0">Example 3:</TextBlock>
+                        <TextBox x:Name="txtExample3"
+                                 Grid.Row="6" Grid.Column="1"
+                                 Margin="5,0,0,5"
+                                 AcceptsReturn="True"
+                                 />
+                        <!-- EndRow 6 -->
+
+                        <!-- Row 7 -->
+                        <TextBlock Grid.Row="7" Grid.Column="0">Example 4:</TextBlock>
+                        <TextBox x:Name="txtExample4"
+                                 Grid.Row="7" Grid.Column="1"
+                                 Margin="5,0,0,5"
+                                 AcceptsReturn="True"
+                                 />
+                        <!-- EndRow 7 -->
+
+                        <!-- Row 8 -->
+                        <TextBlock Grid.Row="8" Grid.Column="0">Example 5:</TextBlock>
+                        <TextBox x:Name="txtExample5"
+                                 Grid.Row="8" Grid.Column="1"
+                                 Margin="5,0,0,5"
+                                 AcceptsReturn="True"
+                                 />
+                        <!-- EndRow 8 -->
+
+                        <!-- Row 9 -->
+                        <TextBlock Grid.Row="9" Grid.Column="0">Example 6:</TextBlock>
+                        <TextBox x:Name="txtExample6"
+                                 Grid.Row="9" Grid.Column="1"
+                                 Margin="5,0,0,5"
+                                 AcceptsReturn="True"
+                                 />
+                        <!-- EndRow 9 -->
+
+                        <!-- Row 10 -->
+                        <Button x:Name="cmdSaveWord"
+                                Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="2"
+                                Content="Save"
+                                Click="cmdSaveWord_Click"
+                                />
+                        <!-- EndRow 10 -->
+                    </Grid>
+                </ScrollViewer>
             </TabItem>
             
             <TabItem x:Name="tiSettings"

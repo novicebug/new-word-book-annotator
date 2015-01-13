@@ -27,6 +27,13 @@ namespace NWBA.Data
 
                 public const string BookId = "book_id";
             }
+
+            public class WordExampleIdList
+            {
+                public const string _TableName = "WordExampleIdList";
+
+                public const string ExampleId = "example_id";
+            }
         }
 
         #region Constructors
@@ -123,6 +130,23 @@ namespace NWBA.Data
             if (dsResult.HasTables())
             {
                 dsResult.Tables[0].TableName = Schema.WordBookIdList._TableName;
+                return dsResult.Tables[0];
+            }
+
+            return null;
+        }
+
+        public DataTable GetWordExampleIdList(int nWordId)
+        {
+            DataSet dsResult;
+            dsResult = ExecuteDataSet(CommandType.StoredProcedure
+                , "[dbo].[GetWordExampleIdList]"
+                , new SqlCommandParameter("@nWordId", SqlDbType.Int, nWordId)
+                );
+
+            if (dsResult.HasTables())
+            {
+                dsResult.Tables[0].TableName = Schema.WordExampleIdList._TableName;
                 return dsResult.Tables[0];
             }
 
