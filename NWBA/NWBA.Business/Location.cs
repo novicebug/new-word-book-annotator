@@ -20,9 +20,33 @@ namespace NWBA.Business
         public Location()
             : base()
         {
-            m_oLocation = new NWBA.Data.Location(base.ConnectionString);
-            
-            Load(0, 0);
+            InitLocation(0, 0);
+        }
+
+        public Location(
+            int nBookId
+            , int nWordId
+            )
+            : base()
+        {
+            InitLocation(
+                nBookId
+                , nWordId
+                );
+        }
+
+        public Location(
+            int nBookId
+            , int nWordId
+            , string sPageLocation
+            )
+            : base()
+        {
+            InitLocation(0, 0);
+
+            this.BookId = nBookId;
+            this.WordId = nWordId;
+            this.PageLocation = sPageLocation;
         }
         #endregion
 
@@ -91,5 +115,18 @@ namespace NWBA.Business
                 );
         }
         #endregion
+
+        private void InitLocation(
+            int nBookId
+            , int nWordId
+            )
+        {
+            m_oLocation = new NWBA.Data.Location(base.ConnectionString);
+
+            this.Load(
+                nBookId
+                , nWordId
+                );        
+        }
     }
 }
