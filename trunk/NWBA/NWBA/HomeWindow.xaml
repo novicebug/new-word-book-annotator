@@ -193,6 +193,9 @@
                                  Grid.Row="2" Grid.Column="1"
                                  Margin="5,0,0,5"
                                  AcceptsReturn="True"
+                                 MaxHeight="200"
+                                 ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                 ScrollViewer.VerticalScrollBarVisibility="Auto"
                                  />
                         <!-- EndRow 2 -->
 
