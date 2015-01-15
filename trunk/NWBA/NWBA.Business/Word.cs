@@ -20,12 +20,27 @@ namespace NWBA.Business
         public Word()
             : base()
         {
-            m_oWord = new NWBA.Data.Word(base.ConnectionString);
+            InitWord(0);
+        }
 
-            this.Locations = new List<Location>();
-            this.Examples = new List<Example>();
-            
-            Load(0);
+        public Word(int nWordId)
+            : base()
+        {
+            InitWord(nWordId);
+        }
+        
+        public Word(
+            string sValue
+            , string sPronunciation
+            , string sTranslation
+            )
+            : base()
+        {         
+            InitWord(0);
+
+            this.Value = sValue;
+            this.Pronunciation = sPronunciation;
+            this.Translation = sTranslation;
         }
         #endregion
 
@@ -100,10 +115,7 @@ namespace NWBA.Business
             LoadExamples();
         }
 
-        public void SaveInBook(
-            int nBookId
-            , string sPageLocation
-            )
+        public void SaveInBook(int nBookId)
         {
             int nNewWordId = 0;
 
@@ -118,11 +130,12 @@ namespace NWBA.Business
             this.WordId = nNewWordId;
 
             Location oLocation = GetLocation(nBookId);
-            oLocation.PageLocation = sPageLocation;
+            oLocation.WordId = this.WordId;
             oLocation.Save();
 
             foreach (Example item in this.Examples)
             {
+                item.WordId = this.WordId;
                 item.Save();
             }
         }
@@ -160,43 +173,71 @@ namespace NWBA.Business
             }
         }
 
-        public Location GetLocation(int nBookId)
+        public void AddLocation(
+            int nBookId
+            , string sPageLocation
+            )
         {
-            Location oResult = (
+            Location oLocation = (
                 from item in this.Locations
                 where item.BookId == nBookId
                     && item.WordId == this.WordId
                 select item
                 ).FirstOrDefault();
 
-            if (oResult == null)
+            if (oLocation == null)
             {
-                oResult = new Location();
-                oResult.BookId = nBookId;
-                oResult.WordId = this.WordId;
-                oResult.PageLocation = "";
-            }
+                oLocation = new Location(
+                    nBookId
+                    , this.WordId
+                    , sPageLocation
+                    );
 
-            return oResult;
+                this.Locations.Add(oLocation);
+            }
+            else
+            {
+                oLocation.PageLocation = sPageLocation;
+            }
         }
 
-        public void AddLocation(Location oNewLocation)
+        public string GetPageLocation(int nBookId)
         {
-            if (oNewLocation.WordId != this.WordId)
+            Location oLocation = GetLocation(nBookId);
+
+            return oLocation.PageLocation;
+        }
+
+        public void AddExample(
+            string sValue
+            , bool bIsPrintIn
+            , int nOrderNbr
+            )
+        {
+            Example oExample = (
+                from item in this.Examples
+                where item.WordId == this.WordId
+                    && item.OrderNbr == nOrderNbr
+                select item
+                ).FirstOrDefault();
+
+            if (oExample == null)
             {
-                return;
+                oExample = new Example(
+                    this.WordId
+                    , sValue
+                    , bIsPrintIn
+                    , nOrderNbr
+                    );
+                this.Examples.Add(oExample);
             }
-
-            this.Locations = this.Locations.Where(
-                p => 
-                    p.BookId != oNewLocation.BookId
-                    && p.WordId == oNewLocation.WordId
-                ).ToList();
-
-            this.Locations.Add(oNewLocation);
+            else
+            {
+                oExample.Value = sValue;
+            }
         }
         
-        public Example GetExample(int nOrderNbr)
+        public string GetExampleValue(int nOrderNbr)
         {
             Example oResult = (
                 from item in this.Examples
@@ -207,11 +248,39 @@ namespace NWBA.Business
 
             if (oResult == null)
             {
-                oResult = new Example();
-                oResult.WordId = this.WordId;
-                oResult.Value = "";
-                oResult.IsPrintIn = false;
-                oResult.OrderNbr = nOrderNbr;
+                return "";
+            }
+
+            return oResult.Value;
+        }
+        #endregion
+
+        #region Private Methods
+        private void InitWord(int nWordId) 
+        {
+            m_oWord = new NWBA.Data.Word(base.ConnectionString);
+
+            this.Locations = new List<Location>();
+            this.Examples = new List<Example>();
+
+            Load(nWordId);
+        }
+
+        private Location GetLocation(int nBookId)
+        {
+            Location oResult = (
+                from item in this.Locations
+                where item.BookId == nBookId
+                select item
+                ).FirstOrDefault();
+
+            if (oResult == null)
+            {
+                oResult = new Location(
+                    nBookId
+                    , this.WordId
+                    , ""
+                    );
             }
 
             return oResult;

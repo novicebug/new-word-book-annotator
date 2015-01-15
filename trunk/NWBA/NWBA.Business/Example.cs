@@ -24,6 +24,32 @@ namespace NWBA.Business
             
             Load(0);
         }
+
+        public Example(int nExampleId)
+            : base()
+        {
+            m_oExample = new NWBA.Data.Example(base.ConnectionString);
+
+            Load(nExampleId);
+        }
+
+        public Example(
+            int nWordId
+            , string sValue
+            , bool bIsPrintIn
+            , int nOrderNbr
+            )
+            : base()
+        {
+            m_oExample = new NWBA.Data.Example(base.ConnectionString);
+
+            Load(0);
+
+            this.WordId = nWordId;
+            this.Value = sValue;
+            this.IsPrintIn = bIsPrintIn;
+            this.OrderNbr = nOrderNbr;
+        }
         #endregion
 
         #region Properties
@@ -101,14 +127,21 @@ namespace NWBA.Business
         }
 
         public void Save()
-        {       
-            m_oExample.Save(
-                this.ExampleId
-                , this.WordId
-                , this.Value
-                , this.IsPrintIn
-                , this.OrderNbr
-                );
+        {
+            if (string.IsNullOrEmpty(this.Value))
+            {
+                m_oExample.Delete(this.ExampleId);
+            }
+            else
+            {
+                m_oExample.Save(
+                    this.ExampleId
+                    , this.WordId
+                    , this.Value
+                    , this.IsPrintIn
+                    , this.OrderNbr
+                    );
+            }
         }
         #endregion
     }

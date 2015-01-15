@@ -66,6 +66,15 @@ namespace NWBA.Data
                 , new SqlCommandParameter("@nOrderNbr", SqlDbType.Int, nOrderNbr)
                 );
         }
+
+        public void Delete(int nExampleId)
+        {
+            ExecuteNonQuery(
+                CommandType.StoredProcedure
+                , "[dbo].[DeleteExample]"
+                , new SqlCommandParameter("@nExampleId", SqlDbType.Int, nExampleId)
+                );
+        }
         #endregion
     }
 }
