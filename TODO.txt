@@ -1,5 +1,11 @@
 ------ PENDING ------
 
+- Move the 3 buttons for add, edit and delete on one row to free up space.
+
+- Add a scrollable container round the word details so it only scrolls them and not the book list, the search and the buttons below.
+
+- How to make saving of word know where it is saving? Probably add a drop down with the books VL and select the current book. 
+
 - Allow adding a searched word to a book. E.g. searching in all books and find a word by clicking a button go to Add/Edit so you can provide another location in the newly selected book.
 
 - Have a listbox with the available books on the left. Have an option to select all.

@@ -203,7 +203,7 @@ namespace NWBA
             StringBuilder sbExamples = new StringBuilder();
             foreach (Example item in m_oCurrentWord.Examples)
             {
-                sbExamples.AppendLine(item.Value);
+                sbExamples.AppendLine("- " + item.Value);
             }
             lblExamples.Text = sbExamples.ToString();
             lblExamplesLabel.Visibility = Visibility.Visible;  
