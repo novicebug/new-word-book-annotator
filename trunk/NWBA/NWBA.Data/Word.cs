@@ -19,6 +19,7 @@ namespace NWBA.Data
                 public const string Value = "value";
                 public const string Pronunciation = "pronunciation";
                 public const string Translation = "translation";
+                public const string Explanation = "explanation";
             }
             
             public class WordBookIdList
@@ -66,6 +67,7 @@ namespace NWBA.Data
             , string sValue
             , string sPronunciation
             , string sTranslation
+            , string sExplanation
             , ref int nWordId_NEW
             )
         {
@@ -83,6 +85,7 @@ namespace NWBA.Data
                 , new SqlCommandParameter("@sValue", SqlDbType.NVarChar, sValue)
                 , new SqlCommandParameter("@sPronunciation", SqlDbType.NVarChar, sPronunciation)
                 , new SqlCommandParameter("@sTranslation", SqlDbType.NVarChar, sTranslation)
+                , new SqlCommandParameter("@sExplanation", SqlDbType.NVarChar, sExplanation)
                 , p_nWordId
                 );
 

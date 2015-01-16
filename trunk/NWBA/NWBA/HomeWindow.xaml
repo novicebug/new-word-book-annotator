@@ -71,11 +71,14 @@
                         <!-- EndRow 1 -->
 
                         <!-- Row 2 -->
-                        <TextBlock x:Name="lblWord"
-                                   Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"
-                                   Margin="5,10,0,5"
-                                   FontSize="20"
-                                   />
+                        <TextBox x:Name="lblWord"
+                                 Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"
+                                 Margin="5,10,0,5"
+                                 FontSize="20"
+                                 IsReadOnly="True"
+                                 BorderThickness="0"
+                                 Background="Transparent"
+                                 />
                         <!-- EndRow 2 -->
 
                         <!-- Row 3 -->
@@ -97,52 +100,73 @@
                         <TextBlock x:Name="lblPageLocation"
                                    Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2"
                                    Margin="5,0,0,5"
+                                   FontWeight="Bold"
                                    />
                         <!-- EndRow 5 -->
 
                         <!-- Row 6 -->
-                        <TextBlock x:Name="lblExamplesLabel"
+                        <TextBlock x:Name="lblExplationLabel"
                                    Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2"
-                                   Margin="5,10,0,5"
-                                   Text="Examples:"
+                                   Margin="5,5,0,5"
+                                   Text="Explation:"
+                                   FontWeight="Bold"
                                    Visibility="Collapsed"
                                    />
                         <!-- EndRow 6 -->
 
                         <!-- Row 7 -->
-                        <TextBlock x:Name="lblExamples"
+                        <TextBlock x:Name="lblExplation"
                                    Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2"
                                    Margin="5,0,0,5"
-                                   TextWrapping="Wrap"
                                    />
                         <!-- EndRow 7 -->
 
                         <!-- Row 8 -->
-                        <Button x:Name="cmdEditWord"
-                                Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2"
-                                Margin="5,0,0,5"
-                                Content="Edit"
-                                Click="cmdEditWord_Click"
-                                />
+                        <Separator Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2"></Separator>
                         <!-- EndRow 8 -->
 
                         <!-- Row 9 -->
-                        <Button x:Name="cmdDeleteWord"
-                                Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="2"
-                                Margin="5,0,0,5"
-                                Content="Delete"
-                                Click="cmdDeleteWord_Click"
-                                />
+                        <TextBlock x:Name="lblExamplesLabel"
+                                   Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="2"
+                                   Margin="5,10,0,5"
+                                   Text="Examples:"
+                                   FontWeight="Bold"
+                                   Visibility="Collapsed"
+                                   />
                         <!-- EndRow 9 -->
 
                         <!-- Row 10 -->
-                        <Button x:Name="cmdAddWord"
-                                Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="2"
-                                Margin="5,0,0,5"
-                                Content="Add"
-                                Click="cmdAddWord_Click"
-                                />
+                        <TextBlock x:Name="lblExamples"
+                                   Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="2"
+                                   Margin="5,0,0,5"
+                                   TextWrapping="Wrap"
+                                   />
                         <!-- EndRow 10 -->
+                                              
+                        <!-- Row 11 -->
+                        <StackPanel Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="2"
+                                    Orientation="Horizontal"
+                                    Margin="5,0,0,5"
+                                    >
+                            <Button x:Name="cmdAddWord"
+                                    Content="Add"
+                                    Width="100"
+                                    Click="cmdAddWord_Click"
+                                    />
+                            <Button x:Name="cmdEditWord"
+                                    Margin="5,0,0,0"
+                                    Content="Edit"
+                                    Width="100"
+                                    Click="cmdEditWord_Click"
+                                    />
+                            <Button x:Name="cmdDeleteWord"
+                                    Margin="5,0,0,0"
+                                    Content="Delete"
+                                    Width="100"
+                                    Click="cmdDeleteWord_Click"
+                                    />
+                        </StackPanel>
+                        <!-- EndRow 11 -->
                     </Grid>
                 </ScrollViewer>
             </TabItem>
@@ -157,6 +181,8 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
@@ -206,10 +232,10 @@
                                  Margin="5,0,0,5"
                                  />
                         <!-- EndRow 3 -->
-                        
+
                         <!-- Row 4 -->
-                        <TextBlock Grid.Row="4" Grid.Column="0">Example 1:</TextBlock>
-                        <TextBox x:Name="txtExample1"
+                        <TextBlock Grid.Row="4" Grid.Column="0">Explanation:</TextBlock>
+                        <TextBox x:Name="txtExplanation"
                                  Grid.Row="4" Grid.Column="1"
                                  Margin="5,0,0,5"
                                  AcceptsReturn="True"
@@ -217,26 +243,21 @@
                         <!-- EndRow 4 -->
 
                         <!-- Row 5 -->
-                        <TextBlock Grid.Row="5" Grid.Column="0">Example 2:</TextBlock>
-                        <TextBox x:Name="txtExample2"
-                                 Grid.Row="5" Grid.Column="1"
-                                 Margin="5,0,0,5"
-                                 AcceptsReturn="True"
-                                 />
+                        <Separator Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"></Separator>
                         <!-- EndRow 5 -->
 
                         <!-- Row 6 -->
-                        <TextBlock Grid.Row="6" Grid.Column="0">Example 3:</TextBlock>
-                        <TextBox x:Name="txtExample3"
+                        <TextBlock Grid.Row="6" Grid.Column="0">Example 1:</TextBlock>
+                        <TextBox x:Name="txtExample1"
                                  Grid.Row="6" Grid.Column="1"
-                                 Margin="5,0,0,5"
+                                 Margin="5,5,0,5"
                                  AcceptsReturn="True"
                                  />
                         <!-- EndRow 6 -->
 
                         <!-- Row 7 -->
-                        <TextBlock Grid.Row="7" Grid.Column="0">Example 4:</TextBlock>
-                        <TextBox x:Name="txtExample4"
+                        <TextBlock Grid.Row="7" Grid.Column="0">Example 2:</TextBlock>
+                        <TextBox x:Name="txtExample2"
                                  Grid.Row="7" Grid.Column="1"
                                  Margin="5,0,0,5"
                                  AcceptsReturn="True"
@@ -244,8 +265,8 @@
                         <!-- EndRow 7 -->
 
                         <!-- Row 8 -->
-                        <TextBlock Grid.Row="8" Grid.Column="0">Example 5:</TextBlock>
-                        <TextBox x:Name="txtExample5"
+                        <TextBlock Grid.Row="8" Grid.Column="0">Example 3:</TextBlock>
+                        <TextBox x:Name="txtExample3"
                                  Grid.Row="8" Grid.Column="1"
                                  Margin="5,0,0,5"
                                  AcceptsReturn="True"
@@ -253,8 +274,8 @@
                         <!-- EndRow 8 -->
 
                         <!-- Row 9 -->
-                        <TextBlock Grid.Row="9" Grid.Column="0">Example 6:</TextBlock>
-                        <TextBox x:Name="txtExample6"
+                        <TextBlock Grid.Row="9" Grid.Column="0">Example 4:</TextBlock>
+                        <TextBox x:Name="txtExample4"
                                  Grid.Row="9" Grid.Column="1"
                                  Margin="5,0,0,5"
                                  AcceptsReturn="True"
@@ -262,12 +283,30 @@
                         <!-- EndRow 9 -->
 
                         <!-- Row 10 -->
+                        <TextBlock Grid.Row="10" Grid.Column="0">Example 5:</TextBlock>
+                        <TextBox x:Name="txtExample5"
+                                 Grid.Row="10" Grid.Column="1"
+                                 Margin="5,0,0,5"
+                                 AcceptsReturn="True"
+                                 />
+                        <!-- EndRow 10 -->
+
+                        <!-- Row 11 -->
+                        <TextBlock Grid.Row="11" Grid.Column="0">Example 6:</TextBlock>
+                        <TextBox x:Name="txtExample6"
+                                 Grid.Row="11" Grid.Column="1"
+                                 Margin="5,0,0,5"
+                                 AcceptsReturn="True"
+                                 />
+                        <!-- EndRow 11 -->
+
+                        <!-- Row 12 -->
                         <Button x:Name="cmdSaveWord"
-                                Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="2"
+                                Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="2"
                                 Content="Save"
                                 Click="cmdSaveWord_Click"
                                 />
-                        <!-- EndRow 10 -->
+                        <!-- EndRow 12 -->
                     </Grid>
                 </ScrollViewer>
             </TabItem>

@@ -202,6 +202,9 @@ namespace NWBA
             lblPronunciation.Text = m_oCurrentWord.Pronunciation;
             lblTranslation.Text = m_oCurrentWord.Translation;
             lblPageLocation.Text = "Page (Location): " + m_oCurrentWord.GetPageLocation(m_oCurrentBook.BookId);
+            
+            lblExplationLabel.Visibility = Visibility.Visible;
+            lblExplation.Text = m_oCurrentWord.Explanation;
 
             StringBuilder sbExamples = new StringBuilder();
             foreach (Example item in m_oCurrentWord.Examples)
@@ -220,6 +223,7 @@ namespace NWBA
             txtPronunciation.Text = m_oCurrentWord.Pronunciation;
             txtTranslation.Text = m_oCurrentWord.Translation;
             txtPageLocation.Text = m_oCurrentWord.GetPageLocation(m_oCurrentBook.BookId);
+            txtExplanation.Text = m_oCurrentWord.Explanation;
 
             for (int nLoop = 1; nLoop <= MAX_EXAMPLES_COUNT; nLoop++)
             {
@@ -238,6 +242,7 @@ namespace NWBA
             m_oCurrentWord.Value = txtWord.Text;
             m_oCurrentWord.Pronunciation = txtPronunciation.Text;
             m_oCurrentWord.Translation = txtTranslation.Text;
+            m_oCurrentWord.Explanation = txtExplanation.Text;
 
             m_oCurrentWord.AddLocation(
                 m_oCurrentBook.BookId
