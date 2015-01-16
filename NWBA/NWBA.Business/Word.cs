@@ -93,6 +93,18 @@ namespace NWBA.Business
             }
         }
 
+        public string Explanation
+        {
+            get
+            {
+                return DBConverter.DBValueToString(m_dtInternalData.Rows[0][Schema.Word.Explanation]);
+            }
+            set
+            {
+                m_dtInternalData.Rows[0][Schema.Word.Explanation] = DBConverter.StringToDBValue(value);
+            }
+        }
+
         public List<Location> Locations { get; set; }
 
         public List<Example> Examples { get; set; }
@@ -124,6 +136,7 @@ namespace NWBA.Business
                 , this.Value
                 , this.Pronunciation
                 , this.Translation
+                , this.Explanation
                 , ref nNewWordId
                 );
 
