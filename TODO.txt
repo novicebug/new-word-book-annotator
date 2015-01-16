@@ -1,6 +1,15 @@
 ------ PENDING ------
 
-- Move the 3 buttons for add, edit and delete on one row to free up space.
+D1:
+- 1. Move the 3 buttons for add, edit and delete on one row to free up space. // 15/1/15
+
+- 3. Add a second row of buttons bellow the current row with "Remove from book" and "Add to book". The remove from book will remove the word just from the current book. The "Add to book" will open Add/Edit tab with all controls disabled but the "Page location". Above it show a drop down with all the books that don't already have the word. This functionality could also be used when searching in "All books" and need to add a found word to a book. Actually allow the drop down to show all the books and let the  user select any one. If a book that already contains the word is selected just load its location in the field. // 16/1/15;
+
+- 4. In the HomeWindow's constructor generate dynamically the example controls based on the constant of there max size and add them to the containing grid. // 15/1/15
+
+- 5. Add font_family column to Settings table. Edit it on Settings tab. // 16/1/15;
+
+- 10. Add export of book to XML and import from XML. // 16/1/15;
 
 - Add a scrollable container round the word details so it only scrolls them and not the book list, the search and the buttons below.
 
@@ -13,8 +22,6 @@
 - When a concrete book is selected in the filter, i.e. other than "---ALL---" option, then check if the searched word is met in other books and if yes mark the word in the details in some way, for example chage its background so that this notifies that the word is met in other places as well.
 
 - Add binding for current Word on Home page and on Add/Edit page. Probably the HomeWindow needs to implement INotifyPropertyChanged and raise the event when setting the CurrentWord property.
-
-- In the HomeWindow's constructor generate dynamically the example controls based on the constant of there size and add them to the containing grid.
 
 
 
@@ -39,3 +46,5 @@
 + Have a search field on the top right with a search button.
 
 + Below show the word with its pronunciation and meaning. Below show examples of using the word (take them from http://www.vocabulary.com/) and finally show on which pages is the word found.
+
++ 2. Add font_size decimal column to Settings table. Edit it on Settings tab from a numeric up down. // 16/1/15;

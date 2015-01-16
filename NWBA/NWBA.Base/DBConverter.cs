@@ -54,6 +54,29 @@ namespace NWBA.Base
             return (long)oValue;
         }
 
+        public static double DBValueToDouble(object oValue)
+        {
+            if (oValue == null
+                || oValue == DBNull.Value
+                )
+            {
+                return 0;
+            }
+
+            return (double)(decimal)oValue;
+        }
+        public static double? DBValueToDoubleNullable(object oValue)
+        {
+            if (oValue == null
+                || oValue == DBNull.Value
+                )
+            {
+                return null;
+            }
+
+            return (double)(decimal)oValue;
+        }
+        
         public static string DBValueToString(object oValue)
         {
             if (oValue == null
@@ -115,6 +138,18 @@ namespace NWBA.Base
         }
 
         public static object LongToDBValue(long? nData)
+        {
+            if (nData.HasValue)
+            {
+                return nData.Value;
+            }
+            else
+            {
+                return DBNull.Value;
+            }
+        }
+
+        public static object DoubleToDBValue(double? nData)
         {
             if (nData.HasValue)
             {
