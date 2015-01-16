@@ -50,6 +50,9 @@ namespace NWBA
             m_oSetting = new Setting();
             m_oSetting.Load();
 
+            txtFontSize.Text = m_oSetting.FontSize.ToString();
+            this.FontSize = m_oSetting.FontSize;
+
             if (!m_oSetting.LastBookId.HasValue)
             {
                 tiHome.IsEnabled = false;
@@ -266,15 +269,16 @@ namespace NWBA
 
         private void cmdSaveSettings_Click(object sender, RoutedEventArgs e)
         {
-            // TODO: Add other settings here before save.
+            double nFontSize;
+            if (!double.TryParse(txtFontSize.Text, out nFontSize))
+            {
+                nFontSize = 12;
+            }
 
-            //m_oSettings.Save();
+            m_oSetting.FontSize = nFontSize;
+            m_oSetting.Save();
 
-            //string sBookRootPath = GetBookRootPath();
-            //if (!Directory.Exists(sBookRootPath))
-            //{
-            //    Directory.CreateDirectory(sBookRootPath);
-            //}
+            this.FontSize = nFontSize;
         }
         #endregion        
     }

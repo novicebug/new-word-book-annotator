@@ -16,6 +16,7 @@ namespace NWBA.Data
                 public const string _TableName = "MainInfo";
 
                 public const string LastBookId = "last_book_id";
+                public const string FontSize = "font_size";
             }
         }
 
@@ -43,12 +44,16 @@ namespace NWBA.Data
             return null;
         }
                
-        public void Save(int nLastBookId)
+        public void Save(
+            int nLastBookId
+            , double nFontSize
+            )
         {
             ExecuteNonQuery(
                 CommandType.StoredProcedure
                 , "[dbo].[SaveSetting]"
                 , new SqlCommandParameter("@nLastBookId", SqlDbType.Int, nLastBookId)
+                , new SqlCommandParameter("@nFontSize", SqlDbType.Decimal, nFontSize)
                 );
         }
         #endregion

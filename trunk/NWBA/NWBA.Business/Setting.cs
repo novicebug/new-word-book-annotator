@@ -38,6 +38,18 @@ namespace NWBA.Business
                 m_dtInternalData.Rows[0][Schema.MainInfo.LastBookId] = DBConverter.IntToDBValue(value);
             }
         }
+
+        public double FontSize
+        {
+            get
+            {
+                return DBConverter.DBValueToDouble(m_dtInternalData.Rows[0][Schema.MainInfo.FontSize]);
+            }
+            set
+            {
+                m_dtInternalData.Rows[0][Schema.MainInfo.FontSize] = DBConverter.DoubleToDBValue(value);
+            }
+        }
         #endregion
         
         #region Public Methods
@@ -54,7 +66,10 @@ namespace NWBA.Business
 
         public void Save()
         {       
-            m_oSetting.Save(this.LastBookId.Value);
+            m_oSetting.Save(
+                this.LastBookId.Value
+                , this.FontSize
+                );
         }
         #endregion
     }

@@ -200,7 +200,7 @@
                         <!-- EndRow 2 -->
 
                         <!-- Row 3 -->
-                        <TextBlock Grid.Row="3" Grid.Column="0">Page(Location):</TextBlock>
+                        <TextBlock Grid.Row="3" Grid.Column="0">Page (Location):</TextBlock>
                         <TextBox x:Name="txtPageLocation"
                                  Grid.Row="3" Grid.Column="1"
                                  Margin="5,0,0,5"
@@ -283,6 +283,9 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
@@ -295,13 +298,21 @@
                     <!-- EndRow 0 -->
 
                     <!-- Row 1 -->
+                    <TextBlock Grid.Row="1" Grid.Column="0">Font Size:</TextBlock>
+                    <TextBox x:Name="txtFontSize"
+                             Grid.Row="1" Grid.Column="1"
+                             Margin="5,5,0,0"
+                             />
+                    <!-- EndRow 1 -->
+
+                    <!-- Row 2 -->
                     <Button x:Name="cmdSaveSettings"
-                            Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                            Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
                             Margin="0,5,0,0"
                             Content="Save"
                             Click="cmdSaveSettings_Click"
                             />
-                    <!-- EndRow 1 -->
+                    <!-- EndRow 2 -->
                 </Grid>
             </TabItem>
         </TabControl>
