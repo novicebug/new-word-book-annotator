@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="New Word Book Annotator" 
         WindowStartupLocation="CenterScreen"
-        Height="600" Width="800"
+        Height="700" Width="900"
         >
     <Grid x:Name="LayoutRoot">
         <TabControl x:Name="tcMenu"
@@ -12,163 +12,177 @@
             <TabItem x:Name="tiHome"
                      Header="Home"                     
                      >
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <Grid Margin="10">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="200"/>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="100"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
+                <Grid Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-                        <!-- Row 0 -->
-                        <TextBlock Grid.Row="0" Grid.Column="0"
-                                   Text="Books:"
-                                   />
-                        <TextBlock Grid.Row="0" Grid.Column="1"
-                                   Margin="5,0,0,0"
-                                   Text="Search:"
-                                   />
-                        <TextBox x:Name="txtSearch"
-                                 Grid.Row="0" Grid.Column="2"
-                                 Margin="5,0,0,0"
-                                 TextChanged="txtSearch_TextChanged"
-                                 />                          
-                        <!-- EndRow 0 -->
+                    <!-- Row 0 -->
+                    <TextBlock Grid.Row="0" Grid.Column="0"
+                               Text="Books:"
+                               />
+                    <TextBlock Grid.Row="0" Grid.Column="1"
+                               Margin="5,0,0,0"
+                               Text="Search:"
+                               />
+                    <TextBox x:Name="txtSearch"
+                             Grid.Row="0" Grid.Column="2"
+                             Margin="5,0,0,0"
+                             TextChanged="txtSearch_TextChanged"
+                             />                          
+                    <!-- EndRow 0 -->
 
-                        <!-- Row 1 -->                    
-                        <ListBox x:Name="lstBook"
-                                 Grid.Row="1" Grid.RowSpan="20" Grid.Column="0"
-                                 Margin="0,5,0,0"
-                                 ItemsSource="{Binding Path=BookList}"
-                                 SelectedValuePath="ValueMember"
-                                 DisplayMemberPath="DisplayMember"    
-                                 SelectionChanged="lstBook_SelectionChanged"
-                                 />
+                    <!-- Row 1 -->                    
+                    <ListBox x:Name="lstBook"
+                             Grid.Row="1" Grid.RowSpan="20" Grid.Column="0"
+                             Margin="0,5,0,0"
+                             ItemsSource="{Binding Path=BookList}"
+                             SelectedValuePath="ValueMember"
+                             DisplayMemberPath="DisplayMember"    
+                             SelectionChanged="lstBook_SelectionChanged"
+                             />
 
-                        <ListBox x:Name="lstMatchingWords"
-                                 Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
-                                 Margin="5,5,0,0"
-                                 ItemsSource="{Binding Path=MatchingWords}"
-                                 SelectedValuePath="WordId"
-                                 DisplayMemberPath="Value"    
-                                 SelectionChanged="lstMatchingWords_SelectionChanged"
-                                 />
-                        <!-- EndRow 1 -->
+                    <ListBox x:Name="lstMatchingWords"
+                             Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
+                             Margin="5,5,0,0"
+                             ItemsSource="{Binding Path=MatchingWords}"
+                             SelectedValuePath="WordId"
+                             DisplayMemberPath="Value"    
+                             SelectionChanged="lstMatchingWords_SelectionChanged"
+                             />
+                    <!-- EndRow 1 -->
 
-                        <!-- Row 2 -->
-                        <TextBox x:Name="lblWord"
-                                 Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"
-                                 Margin="5,10,0,5"
-                                 FontSize="20"
-                                 IsReadOnly="True"
-                                 BorderThickness="0"
-                                 Background="Transparent"
-                                 />
-                        <!-- EndRow 2 -->
+                    <!-- Row 2 -->
+                    <TextBox x:Name="lblWord"
+                             Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"
+                             Margin="5,10,0,5"
+                             FontSize="20"
+                             IsReadOnly="True"
+                             BorderThickness="0"
+                             Background="Transparent"
+                             />
+                    <!-- EndRow 2 -->
 
-                        <!-- Row 3 -->
-                        <TextBlock x:Name="lblPronunciation"
-                                   Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"
-                                   Margin="5,0,0,5"
-                                   FontSize="15"
-                                   />
-                        <!-- EndRow 3 -->
+                    <!-- Row 3 -->
+                    <TextBlock x:Name="lblPronunciation"
+                               Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"
+                               Margin="5,0,0,5"
+                               FontSize="15"
+                               />
+                    <!-- EndRow 3 -->
 
-                        <!-- Row 4 -->
+                    <!-- Row 4 -->
+                    <ScrollViewer Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2"
+                                  VerticalScrollBarVisibility="Auto"    
+                                  MaxHeight="130"
+                                  >
                         <TextBlock x:Name="lblTranslation"
-                                   Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2"
-                                   Margin="5,0,0,5"
-                                   />
-                        <!-- EndRow 4 -->
-
-                        <!-- Row 5 -->
-                        <TextBlock x:Name="lblPageLocation"
-                                   Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2"
-                                   Margin="5,0,0,5"
-                                   FontWeight="Bold"
-                                   />
-                        <!-- EndRow 5 -->
-
-                        <!-- Row 6 -->
-                        <TextBlock x:Name="lblExplationLabel"
-                                   Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2"
-                                   Margin="5,5,0,5"
-                                   Text="Explation:"
-                                   FontWeight="Bold"
-                                   Visibility="Collapsed"
-                                   />
-                        <!-- EndRow 6 -->
-
-                        <!-- Row 7 -->
-                        <TextBlock x:Name="lblExplation"
-                                   Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2"
-                                   Margin="5,0,0,5"
-                                   />
-                        <!-- EndRow 7 -->
-
-                        <!-- Row 8 -->
-                        <Separator Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2"></Separator>
-                        <!-- EndRow 8 -->
-
-                        <!-- Row 9 -->
-                        <TextBlock x:Name="lblExamplesLabel"
-                                   Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="2"
-                                   Margin="5,10,0,5"
-                                   Text="Examples:"
-                                   FontWeight="Bold"
-                                   Visibility="Collapsed"
-                                   />
-                        <!-- EndRow 9 -->
-
-                        <!-- Row 10 -->
-                        <TextBlock x:Name="lblExamples"
-                                   Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="2"
                                    Margin="5,0,0,5"
                                    TextWrapping="Wrap"
                                    />
-                        <!-- EndRow 10 -->
-                                              
-                        <!-- Row 11 -->
-                        <StackPanel Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="2"
-                                    Orientation="Horizontal"
-                                    Margin="5,0,0,5"
-                                    >
-                            <Button x:Name="cmdAddWord"
-                                    Content="Add"
-                                    Width="100"
-                                    Click="cmdAddWord_Click"
-                                    />
-                            <Button x:Name="cmdEditWord"
-                                    Margin="5,0,0,0"
-                                    Content="Edit"
-                                    Width="100"
-                                    Click="cmdEditWord_Click"
-                                    />
-                            <Button x:Name="cmdDeleteWord"
-                                    Margin="5,0,0,0"
-                                    Content="Delete"
-                                    Width="100"
-                                    Click="cmdDeleteWord_Click"
-                                    />
-                        </StackPanel>
-                        <!-- EndRow 11 -->
-                    </Grid>
-                </ScrollViewer>
+                    </ScrollViewer>
+                    <!-- EndRow 4 -->
+
+                    <!-- Row 5 -->
+                    <StackPanel Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2"
+                                Margin="5,0,0,5"
+                                Orientation="Horizontal"
+                                >
+                        <TextBlock x:Name="lblPageLocationLabel"
+                                   Text="Page (Location):"
+                                   FontWeight="Bold"
+                                   Visibility="Collapsed"
+                                   />
+                        <TextBlock x:Name="lblPageLocation"
+                                   Margin="5,0,0,0"/>
+                    </StackPanel>
+                    <!-- EndRow 5 -->
+
+                    <!-- Row 6 -->
+                    <TextBlock x:Name="lblExplationLabel"
+                               Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2"
+                               Margin="5,5,0,5"
+                               Text="Explation:"
+                               FontWeight="Bold"
+                               Visibility="Collapsed"
+                               />
+                    <!-- EndRow 6 -->
+
+                    <!-- Row 7 -->
+                    <TextBlock x:Name="lblExplation"
+                               Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2"
+                               Margin="5,0,0,5"
+                               />
+                    <!-- EndRow 7 -->
+
+                    <!-- Row 8 -->
+                    <Separator Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2"></Separator>
+                    <!-- EndRow 8 -->
+
+                    <!-- Row 9 -->
+                    <TextBlock x:Name="lblExamplesLabel"
+                               Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="2"
+                               Margin="5,10,0,5"
+                               Text="Examples:"
+                               FontWeight="Bold"
+                               Visibility="Collapsed"
+                               />
+                    <!-- EndRow 9 -->
+
+                    <!-- Row 10 -->
+                    <ScrollViewer Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="2"
+                                  VerticalScrollBarVisibility="Auto"    
+                                  MaxHeight="150"
+                                  >
+                        <TextBlock x:Name="lblExamples"
+                                   Margin="5,0,0,5"
+                                   TextWrapping="Wrap"
+                                   />
+                    </ScrollViewer>
+                    <!-- EndRow 10 -->
+                                          
+                    <!-- Row 11 -->
+                    <StackPanel Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="2"
+                                Orientation="Horizontal"
+                                Margin="5,5,0,5"
+                                >
+                        <Button x:Name="cmdAddWord"
+                                Content="Add"
+                                Width="100"
+                                Click="cmdAddWord_Click"
+                                />
+                        <Button x:Name="cmdEditWord"
+                                Margin="5,0,0,0"
+                                Content="Edit"
+                                Width="100"
+                                Click="cmdEditWord_Click"
+                                />
+                        <Button x:Name="cmdDeleteWord"
+                                Margin="5,0,0,0"
+                                Content="Delete"
+                                Width="100"
+                                Click="cmdDeleteWord_Click"
+                                />
+                    </StackPanel>
+                    <!-- EndRow 11 -->
+                </Grid>
             </TabItem>
             
             <TabItem x:Name="tiAdd"
@@ -177,10 +191,11 @@
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <Grid Margin="10">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="100"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
@@ -307,6 +322,20 @@
                                 Click="cmdSaveWord_Click"
                                 />
                         <!-- EndRow 12 -->
+
+
+                        <!-- Row 6 -->
+                        <Grid x:Name="gridExamples"
+                              Grid.Row="13" Grid.Column="0" Grid.ColumnSpan="2"
+                              >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="20"/>
+                            </Grid.ColumnDefinitions>
+
+                        </Grid>
+                        <!-- EndRow 6 -->
                     </Grid>
                 </ScrollViewer>
             </TabItem>
