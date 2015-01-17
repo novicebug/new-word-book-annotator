@@ -26,7 +26,9 @@ namespace NWBA
     public partial class HomeWindow : Window
     {
         #region Private Members
-        private const int MAX_EXAMPLES_COUNT = 6;
+        private const int MAX_EXAMPLES_COUNT = 10;
+        private const string DYNAMIC_EXAMPLE_TEXTBOX_NAME = "txtExample";
+        private const string DYNAMIC_PRINT_EXAMPLE_CHECKBOX_NAME = "chkPrintExample";
 
         private Setting m_oSetting;
         private Book m_oCurrentBook;
@@ -235,7 +237,7 @@ namespace NWBA
                 gridExamples.Children.Add(lblExample);
 
                 TextBox txtExample = new TextBox();
-                txtExample.Name = "_txtExample" + nLoop.ToString();
+                txtExample.Name = DYNAMIC_EXAMPLE_TEXTBOX_NAME + nLoop.ToString();
                 txtExample.Margin = new Thickness(5, 5, 0, 0);
                 Grid.SetRow(txtExample, nLoop - 1);
                 Grid.SetColumn(txtExample, 1);
@@ -243,7 +245,7 @@ namespace NWBA
                 gridExamples.RegisterName(txtExample.Name, txtExample);
 
                 CheckBox chkPrintExample = new CheckBox();
-                chkPrintExample.Name = "chkPrintExample" + nLoop.ToString();
+                chkPrintExample.Name = DYNAMIC_PRINT_EXAMPLE_CHECKBOX_NAME + nLoop.ToString();
                 chkPrintExample.Margin = new Thickness(5, 10, 0, 0);
                 Grid.SetRow(chkPrintExample, nLoop - 1);
                 Grid.SetColumn(chkPrintExample, 2);
@@ -262,7 +264,7 @@ namespace NWBA
 
             for (int nLoop = 1; nLoop <= MAX_EXAMPLES_COUNT; nLoop++)
             {
-                TextBox txtCurrentExample = (TextBox)tiAdd.FindName("_txtExample" + nLoop.ToString());
+                TextBox txtCurrentExample = (TextBox)tiAdd.FindName(DYNAMIC_EXAMPLE_TEXTBOX_NAME + nLoop.ToString());
                 txtCurrentExample.Text = m_oCurrentWord.GetExampleValue(nLoop);
             }
         }
@@ -286,7 +288,7 @@ namespace NWBA
 
             for (int nLoop = 1; nLoop <= MAX_EXAMPLES_COUNT; nLoop++)
             {
-                TextBox txtCurrentExample = (TextBox)tiAdd.FindName("_txtExample" + nLoop.ToString());
+                TextBox txtCurrentExample = (TextBox)tiAdd.FindName(DYNAMIC_EXAMPLE_TEXTBOX_NAME + nLoop.ToString());
 
                 m_oCurrentWord.AddExample(
                     txtCurrentExample.Text
