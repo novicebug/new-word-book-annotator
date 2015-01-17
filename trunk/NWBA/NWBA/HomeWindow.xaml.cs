@@ -41,6 +41,8 @@ namespace NWBA
         public HomeWindow()
         {
             InitializeComponent();
+            
+            InitAddTabControls();
 
             this.BookList = new ObservableCollection<ValueItem>();
             this.MatchingWords = new ObservableCollection<Word>();
@@ -157,7 +159,7 @@ namespace NWBA
                 return;
             }
 
-            InitializeAddTabControls();
+            LoadAddTabControls();
 
             tcMenu.SelectedItem = tiAdd;
         }
@@ -189,7 +191,7 @@ namespace NWBA
         {
             m_oCurrentWord = new Word();
 
-            InitializeAddTabControls();
+            LoadAddTabControls();
 
             tcMenu.SelectedItem = tiAdd;
         }
@@ -201,7 +203,8 @@ namespace NWBA
             lblWord.Text = m_oCurrentWord.Value;
             lblPronunciation.Text = m_oCurrentWord.Pronunciation;
             lblTranslation.Text = m_oCurrentWord.Translation;
-            lblPageLocation.Text = "Page (Location): " + m_oCurrentWord.GetPageLocation(m_oCurrentBook.BookId);
+            lblPageLocationLabel.Visibility = Visibility.Visible;
+            lblPageLocation.Text = m_oCurrentWord.GetPageLocation(m_oCurrentBook.BookId);
             
             lblExplationLabel.Visibility = Visibility.Visible;
             lblExplation.Text = m_oCurrentWord.Explanation;
@@ -217,7 +220,39 @@ namespace NWBA
         #endregion
 
         #region " Add Tab "
-        private void InitializeAddTabControls()
+        private void InitAddTabControls()
+        {
+            for (int nLoop = 1; nLoop <= MAX_EXAMPLES_COUNT; nLoop++)
+            {
+                RowDefinition oRowDefinition = new RowDefinition();
+                oRowDefinition.Height = GridLength.Auto;
+                gridExamples.RowDefinitions.Add(oRowDefinition);
+
+                TextBlock lblExample = new TextBlock();                
+                lblExample.Text = "Example " + nLoop.ToString() + ":";
+                Grid.SetRow(lblExample, nLoop - 1);
+                Grid.SetColumn(lblExample, 0);
+                gridExamples.Children.Add(lblExample);
+
+                TextBox txtExample = new TextBox();
+                txtExample.Name = "_txtExample" + nLoop.ToString();
+                txtExample.Margin = new Thickness(5, 5, 0, 0);
+                Grid.SetRow(txtExample, nLoop - 1);
+                Grid.SetColumn(txtExample, 1);
+                gridExamples.Children.Add(txtExample);
+                gridExamples.RegisterName(txtExample.Name, txtExample);
+
+                CheckBox chkPrintExample = new CheckBox();
+                chkPrintExample.Name = "chkPrintExample" + nLoop.ToString();
+                chkPrintExample.Margin = new Thickness(5, 10, 0, 0);
+                Grid.SetRow(chkPrintExample, nLoop - 1);
+                Grid.SetColumn(chkPrintExample, 2);
+                gridExamples.Children.Add(chkPrintExample);
+                gridExamples.RegisterName(chkPrintExample.Name, chkPrintExample);
+            }                
+        }
+
+        private void LoadAddTabControls()
         {
             txtWord.Text = m_oCurrentWord.Value;
             txtPronunciation.Text = m_oCurrentWord.Pronunciation;
@@ -227,7 +262,7 @@ namespace NWBA
 
             for (int nLoop = 1; nLoop <= MAX_EXAMPLES_COUNT; nLoop++)
             {
-                TextBox txtCurrentExample = (TextBox)tiAdd.FindName("txtExample" + nLoop.ToString());
+                TextBox txtCurrentExample = (TextBox)tiAdd.FindName("_txtExample" + nLoop.ToString());
                 txtCurrentExample.Text = m_oCurrentWord.GetExampleValue(nLoop);
             }
         }
@@ -251,7 +286,7 @@ namespace NWBA
 
             for (int nLoop = 1; nLoop <= MAX_EXAMPLES_COUNT; nLoop++)
             {
-                TextBox txtCurrentExample = (TextBox)tiAdd.FindName("txtExample" + nLoop.ToString());
+                TextBox txtCurrentExample = (TextBox)tiAdd.FindName("_txtExample" + nLoop.ToString());
 
                 m_oCurrentWord.AddExample(
                     txtCurrentExample.Text
