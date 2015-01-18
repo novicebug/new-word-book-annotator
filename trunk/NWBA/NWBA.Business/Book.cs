@@ -21,10 +21,20 @@ namespace NWBA.Business
             : base()
         {
             m_oBook = new NWBA.Data.Book(base.ConnectionString);
-            
+
             this.Words = new List<Word>();
 
             Load(0);
+        }
+
+        public Book(int nBookId)
+            : base()
+        {
+            m_oBook = new NWBA.Data.Book(base.ConnectionString);
+
+            this.Words = new List<Word>();
+
+            Load(nBookId);
         }
         #endregion
 

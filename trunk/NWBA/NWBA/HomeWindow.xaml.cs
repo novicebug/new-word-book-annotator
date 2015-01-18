@@ -117,18 +117,17 @@ namespace NWBA
             int nBookId = (int)lstBook.SelectedValue;
 
             txtSearch.Focus();
+            cmdExportBook.IsEnabled = true;
 
             if (nBookId == 0) // All
             {
-                tiAdd.IsEnabled = false;
+                tiAdd.IsEnabled = false;                
             }
             else
             {
                 tiAdd.IsEnabled = true;
 
-                Book oBook = new Book();
-                oBook.Load(nBookId);
-                m_oCurrentBook = oBook;
+                m_oCurrentBook = new Book(nBookId);
 
                 SearchWords();
 
@@ -152,6 +151,44 @@ namespace NWBA
             int nWordId = (int)lstMatchingWords.SelectedValue;
             
             InitializeWordControls(nWordId);      
+        }
+
+        private void cmdExportBook_Click(object sender, RoutedEventArgs e)
+        {
+            List<Word> arrWordsToExport = m_oCurrentBook.Words;
+
+            if (m_oCurrentBook.BookId == 0)
+            {
+                // TODO: Handle export of all words.
+            }
+
+            using (Novacode.DocX document = Novacode.DocX.Create(m_oCurrentBook.Title + ".docx", Novacode.DocumentTypes.Document))
+            {
+                document.MarginTop = 25;
+                document.MarginRight = 25;
+                document.MarginBottom = 25;
+                document.MarginLeft = 25;
+                                
+                for (int nLoop = 0; nLoop < arrWordsToExport.Count; nLoop++)
+                {
+                    Word oWord = arrWordsToExport[nLoop];
+                    
+                    Novacode.Paragraph oParagraph = document.InsertParagraph();
+                    oParagraph
+                        .Append(oWord.Value).FontSize(15).Bold()
+                        .Append(" " + oWord.Pronunciation).Bold().Font(new System.Drawing.FontFamily("Lucida Sans Unicode")).Color(System.Drawing.Color.FromArgb(255, 182, 69, 1))
+                        .AppendLine(oWord.Translation).Italic().SpacingAfter(6);
+                    if (!string.IsNullOrEmpty(oWord.Explanation))
+                    {
+                        oParagraph.AppendLine(oWord.Explanation).UnderlineStyle(Novacode.UnderlineStyle.singleLine).Bold().SpacingAfter(6);
+                    }
+                    oParagraph.AppendLine(oWord.GetPrintableExamples()).SpacingAfter(12);
+                }
+
+                document.Save();
+
+                MessageBox.Show("Book \"" + m_oCurrentBook.Title + "\" expoerted successfully!");
+            }
         }
 
         private void cmdEditWord_Click(object sender, RoutedEventArgs e)
@@ -197,7 +234,7 @@ namespace NWBA
 
             tcMenu.SelectedItem = tiAdd;
         }
-
+        
         private void InitializeWordControls(int nWordId)
         {
             m_oCurrentWord = new Word(nWordId);
@@ -258,14 +295,19 @@ namespace NWBA
         {
             txtWord.Text = m_oCurrentWord.Value;
             txtPronunciation.Text = m_oCurrentWord.Pronunciation;
-            txtTranslation.Text = m_oCurrentWord.Translation;
+            txtTranslation.Text = m_oCurrentWord.Translation.Replace(Environment.NewLine + Environment.NewLine, Environment.NewLine);
             txtPageLocation.Text = m_oCurrentWord.GetPageLocation(m_oCurrentBook.BookId);
             txtExplanation.Text = m_oCurrentWord.Explanation;
 
             for (int nLoop = 1; nLoop <= MAX_EXAMPLES_COUNT; nLoop++)
             {
+                Example oExample = m_oCurrentWord.GetExample(nLoop);
+
                 TextBox txtCurrentExample = (TextBox)tiAdd.FindName(DYNAMIC_EXAMPLE_TEXTBOX_NAME + nLoop.ToString());
-                txtCurrentExample.Text = m_oCurrentWord.GetExampleValue(nLoop);
+                txtCurrentExample.Text = oExample.Value;
+
+                CheckBox chkPrintExample = (CheckBox)tiAdd.FindName(DYNAMIC_PRINT_EXAMPLE_CHECKBOX_NAME + nLoop.ToString());
+                chkPrintExample.IsChecked = oExample.IsPrintIn;
             }
         }
 
@@ -289,10 +331,11 @@ namespace NWBA
             for (int nLoop = 1; nLoop <= MAX_EXAMPLES_COUNT; nLoop++)
             {
                 TextBox txtCurrentExample = (TextBox)tiAdd.FindName(DYNAMIC_EXAMPLE_TEXTBOX_NAME + nLoop.ToString());
+                CheckBox chkPrintExample = (CheckBox)tiAdd.FindName(DYNAMIC_PRINT_EXAMPLE_CHECKBOX_NAME + nLoop.ToString());
 
                 m_oCurrentWord.AddExample(
                     txtCurrentExample.Text
-                    , false
+                    , chkPrintExample.IsChecked.Value
                     , nLoop
                     );
             }
