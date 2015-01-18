@@ -29,9 +29,8 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
                     <!-- Row 0 -->
@@ -51,7 +50,7 @@
 
                     <!-- Row 1 -->                    
                     <ListBox x:Name="lstBook"
-                             Grid.Row="1" Grid.RowSpan="20" Grid.Column="0"
+                             Grid.Row="1" Grid.RowSpan="10" Grid.Column="0"
                              Margin="0,5,0,0"
                              ItemsSource="{Binding Path=BookList}"
                              SelectedValuePath="ValueMember"
@@ -164,6 +163,14 @@
                     <!-- EndRow 10 -->
                                           
                     <!-- Row 11 -->
+                    <Button x:Name="cmdExportBook"
+                            Grid.Row="11" Grid.Column="0" 
+                            Margin="0,5,0,5"
+                            Content="Export Book"
+                            IsEnabled="False"
+                            Click="cmdExportBook_Click"
+                            />
+                    
                     <StackPanel Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="2"
                                 Orientation="Horizontal"
                                 Margin="5,5,0,5"

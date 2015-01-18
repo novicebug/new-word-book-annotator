@@ -247,10 +247,11 @@ namespace NWBA.Business
             else
             {
                 oExample.Value = sValue;
+                oExample.IsPrintIn = bIsPrintIn;
             }
         }
         
-        public string GetExampleValue(int nOrderNbr)
+        public Example GetExample(int nOrderNbr)
         {
             Example oResult = (
                 from item in this.Examples
@@ -261,10 +262,30 @@ namespace NWBA.Business
 
             if (oResult == null)
             {
-                return "";
+                oResult = new Example();
             }
 
-            return oResult.Value;
+            return oResult;
+        }
+
+        public string GetPrintableExamples(int nMaxExampleToReturn)
+        {
+            StringBuilder sbResult = new StringBuilder();
+
+            foreach (Example item in this.Examples)
+            {
+                if (item.IsPrintIn)
+                {
+                    sbResult.AppendLine("- " + item.Value);
+                }
+            }
+
+            return sbResult.ToString();
+        }
+
+        public string GetPrintableExamples()
+        {
+            return this.GetPrintableExamples(3);
         }
         #endregion
 
