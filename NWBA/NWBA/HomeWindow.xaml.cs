@@ -159,7 +159,7 @@ namespace NWBA
 
             if (m_oCurrentBook.BookId == 0)
             {
-                // TODO: Handle export of all words.
+                // TODO: Handle export of all words by adding them to arrWordsToExport and sorting.
             }
 
             using (Novacode.DocX document = Novacode.DocX.Create(m_oCurrentBook.Title + ".docx", Novacode.DocumentTypes.Document))
@@ -168,7 +168,7 @@ namespace NWBA
                 document.MarginRight = 25;
                 document.MarginBottom = 25;
                 document.MarginLeft = 25;
-                                
+                 
                 for (int nLoop = 0; nLoop < arrWordsToExport.Count; nLoop++)
                 {
                     Word oWord = arrWordsToExport[nLoop];
@@ -309,6 +309,28 @@ namespace NWBA
                 CheckBox chkPrintExample = (CheckBox)tiAdd.FindName(DYNAMIC_PRINT_EXAMPLE_CHECKBOX_NAME + nLoop.ToString());
                 chkPrintExample.IsChecked = oExample.IsPrintIn;
             }
+        }
+
+        private void cmdAddExamples_Click(object sender, RoutedEventArgs e)
+        {
+            if (MAX_EXAMPLES_COUNT == m_oCurrentWord.Examples.Count)
+            {
+                return;
+            }
+
+            AddExamplesWindow oAddExamplesWindow = new AddExamplesWindow(
+                m_oCurrentWord.Value
+                , MAX_EXAMPLES_COUNT - m_oCurrentWord.Examples.Count
+                );
+            oAddExamplesWindow.ExamplesSelected += new EventHandler(oAddExamplesWindow_ExamplesSelected);
+            oAddExamplesWindow.ShowDialog();
+        }
+
+        void oAddExamplesWindow_ExamplesSelected(object sender, EventArgs e)
+        {
+            NWBA.Base.ExamplesSelectedEventArgs args = (NWBA.Base.ExamplesSelectedEventArgs)e;
+            //args.Examples;
+            object a = e;
         }
 
         private void cmdSaveWord_Click(object sender, RoutedEventArgs e)

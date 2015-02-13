@@ -1,0 +1,53 @@
+﻿<Window x:Class="NWBA.AddExamplesWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Add Examples"         
+        WindowStartupLocation="CenterScreen"
+        Height="300" Width="300"
+        >
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Row 0 -->
+        <TextBlock Grid.Row="0"
+                   Text="Loaded Examples"
+                   />
+        <!-- EndRow 0 -->
+
+        <!-- Row 1 -->
+        <ItemsControl>
+            <ControlTemplate>
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox />
+                    <TextBlock Text="{Binding Path=Sentence}" />
+                </StackPanel>
+            </ControlTemplate>
+        </ItemsControl>
+        <!-- EndRow 1 -->
+        
+        <!-- Row 2 -->
+        <StackPanel Grid.Row="2"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Margin="5,5,0,5"
+                    >
+            <Button x:Name="cmdShowMoreExamples"
+                    Margin="5,0,0,0"
+                    Content="More"
+                    Width="100"
+                    Click="cmdShowMoreExamples_Click"
+                    />
+            <Button x:Name="cmdSaveExamples"
+                    Margin="5,0,0,0"
+                    Content="Save"
+                    Width="100"
+                    Click="cmdSaveExamples_Click"
+                    />
+        </StackPanel>
+        <!-- EndRow 2 -->
+    </Grid>
+</Window>
