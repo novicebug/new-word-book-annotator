@@ -84,6 +84,8 @@
                                Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"
                                Margin="5,0,0,5"
                                FontSize="15"
+                               Foreground="#FFB64501"
+                               FontWeight="Bold"
                                />
                     <!-- EndRow 3 -->
 
@@ -95,6 +97,7 @@
                         <TextBlock x:Name="lblTranslation"
                                    Margin="5,0,0,5"
                                    TextWrapping="Wrap"
+                                   FontStyle="Italic"
                                    />
                     </ScrollViewer>
                     <!-- EndRow 4 -->
@@ -128,10 +131,11 @@
                     <ScrollViewer Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2"
                                   VerticalScrollBarVisibility="Auto" 
                                   Margin="5,0,0,5"
-                                  MaxHeight="40"
+                                  MaxHeight="50"
                                   >
                         <TextBlock x:Name="lblExplation"
                                    TextWrapping="Wrap"
+                                   TextDecorations="Underline"
                                    />
                     </ScrollViewer>
                     <!-- EndRow 7 -->
@@ -152,12 +156,12 @@
 
                     <!-- Row 10 -->
                     <ScrollViewer Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="2"
-                                  VerticalScrollBarVisibility="Auto"    
-                                  MaxHeight="120"
+                                  VerticalScrollBarVisibility="Auto" 
                                   >
                         <TextBlock x:Name="lblExamples"
                                    Margin="5,0,0,5"
                                    TextWrapping="Wrap"
+                                   VerticalAlignment="Top"
                                    />
                     </ScrollViewer>
                     <!-- EndRow 10 -->
@@ -173,6 +177,7 @@
                     
                     <StackPanel Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="2"
                                 Orientation="Horizontal"
+                                HorizontalAlignment="Right"
                                 Margin="5,5,0,5"
                                 >
                         <Button x:Name="cmdAddWord"
@@ -281,12 +286,23 @@
                         <!-- EndRow 6 -->
 
                         <!-- Row 7 -->
-                        <Button x:Name="cmdSaveWord"
-                                Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2"
-                                Margin="0,5,0,0"
-                                Content="Save"
-                                Click="cmdSaveWord_Click"
-                                />
+                        <StackPanel Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2"
+                                    Orientation="Horizontal"
+                                    HorizontalAlignment="Right"
+                                    Margin="5,5,0,5"
+                                    >
+                            <Button x:Name="cmdAddExamples"
+                                    Content="Add Examples"
+                                    Width="100"
+                                    Click="cmdAddExamples_Click"
+                                    />
+                            <Button x:Name="cmdSaveWord"
+                                    Margin="5,0,0,0"
+                                    Content="Save"
+                                    Width="100"
+                                    Click="cmdSaveWord_Click"
+                                    />
+                        </StackPanel>
                         <!-- EndRow 7 -->                        
                     </Grid>
                 </ScrollViewer>

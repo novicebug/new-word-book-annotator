@@ -59,6 +59,7 @@
     <Compile Include="Data.cs" />
     <Compile Include="DBConverter.cs" />
     <Compile Include="DbHelper.cs" />
+    <Compile Include="ExamplesSelectedEventArgs.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlCommandParameter.cs" />
