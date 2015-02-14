@@ -7,5 +7,8 @@
         <Style TargetType="TextBlock">
             <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
+        <Style TargetType="Button">
+            <Setter Property="Height" Value="30"/>
+        </Style>
     </Application.Resources>
 </Application>

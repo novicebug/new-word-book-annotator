@@ -21,7 +21,7 @@ using NWBA.Business;
 namespace NWBA
 {
     /// <summary>
-    /// Interaction logic for Window1.xaml
+    /// Interaction logic for HomeWindow.xaml
     /// </summary>
     public partial class HomeWindow : Window
     {
@@ -323,14 +323,25 @@ namespace NWBA
                 , MAX_EXAMPLES_COUNT - m_oCurrentWord.Examples.Count
                 );
             oAddExamplesWindow.ExamplesSelected += new EventHandler(oAddExamplesWindow_ExamplesSelected);
-            oAddExamplesWindow.ShowDialog();
+            oAddExamplesWindow.Show();
         }
 
-        void oAddExamplesWindow_ExamplesSelected(object sender, EventArgs e)
+        private void oAddExamplesWindow_ExamplesSelected(object sender, EventArgs e)
         {
             NWBA.Base.ExamplesSelectedEventArgs args = (NWBA.Base.ExamplesSelectedEventArgs)e;
-            //args.Examples;
-            object a = e;
+
+            int nNextExampleOrderNbr = m_oCurrentWord.Examples.Count + 1;
+            
+            for (int nLoop = 0; nLoop < args.Examples.Count; nLoop++)
+            {
+                m_oCurrentWord.AddExample(
+                    args.Examples[nLoop]
+                    , false
+                    , nNextExampleOrderNbr + nLoop 
+                    );
+            }
+
+            LoadAddTabControls();
         }
 
         private void cmdSaveWord_Click(object sender, RoutedEventArgs e)
