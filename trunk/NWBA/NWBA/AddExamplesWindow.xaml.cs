@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Net;
 using System.IO;
+using System.Collections.ObjectModel;
 
 namespace NWBA
 {
@@ -25,13 +26,23 @@ namespace NWBA
         private string VOCABULARY_SENTENCE_START_SEPARATOR = "\"sentence\":\"";
         private string VOCABULARY_SENTENCE_END_SEPARATOR = "\",\"volumeOffset\":";
         private string VOCABULARY_QUOTE_ENCODE = "\\\"";
+        private string VOCABULARY_OPEN_QUOTE_ENCODE = "\\u201c";
+        private string VOCABULARY_CLOSE_QUOTE_ENCODE = "\\u201d";
+        private string VOCABULARY_APOSTROPHE_ENCODE = "\\u2019";
+        private string VOCABULARY_DASH_ENCODE = "\\u2014";
 
         private string m_sSearchedWord;
         private int m_nNeededExamplesCount;
         private int m_nCurrentPage = 0;
-        private List<string> m_arrExamples;
-        
+        private ObservableCollection<ExampleItem> m_arrExamples;
+                
         public event EventHandler ExamplesSelected;
+
+        public class ExampleItem
+        {
+            public bool IsSelectedIn { get; set; }
+            public string Sentence { get; set; }
+        }
 
         public AddExamplesWindow(
             string sSearchedWord
@@ -42,9 +53,18 @@ namespace NWBA
 
             m_sSearchedWord = sSearchedWord;
             m_nNeededExamplesCount = nNeededExamplesCount;
-            m_arrExamples = new List<string>();
+            m_arrExamples = new ObservableCollection<ExampleItem>();
 
             LoadExamples();
+
+            SetWindowFontSize();
+        }
+
+        private void SetWindowFontSize()
+        {
+            NWBA.Business.Setting oSetting = new NWBA.Business.Setting();
+            oSetting.Load();
+            this.FontSize = oSetting.FontSize;
         }
 
         private void cmdShowMoreExamples_Click(object sender, RoutedEventArgs e)
@@ -56,9 +76,15 @@ namespace NWBA
         private void cmdSaveExamples_Click(object sender, RoutedEventArgs e)
         {
             NWBA.Base.ExamplesSelectedEventArgs args = new NWBA.Base.ExamplesSelectedEventArgs();
-            args.Examples = m_arrExamples; // TODO: Return just the checked examples.
+            args.Examples =
+                (from item in m_arrExamples
+                 where item.IsSelectedIn
+                 select item.Sentence                 
+                 ).ToList();
             
             ExamplesSelected.Invoke(this, args);
+
+            this.Close();
         }
 
         private void LoadExamples()
@@ -76,27 +102,62 @@ namespace NWBA
                         do
                         {
                             nStartPosition = sReadData.IndexOf(VOCABULARY_SENTENCE_START_SEPARATOR, nStartPosition);
-                            nSentenceEndPosition = sReadData.IndexOf(VOCABULARY_SENTENCE_END_SEPARATOR, nStartPosition);
 
-                            if (nStartPosition < nSentenceEndPosition)
+                            if (nStartPosition >= 0)
                             {
-                                m_arrExamples.Add(
-                                    sReadData.Substring(
-                                        nStartPosition + VOCABULARY_SENTENCE_START_SEPARATOR.Length
-                                        , nSentenceEndPosition - nStartPosition - VOCABULARY_SENTENCE_START_SEPARATOR.Length
-                                        ).Replace(VOCABULARY_QUOTE_ENCODE, "\"")
-                                    );
-                            }
+                                nSentenceEndPosition = sReadData.IndexOf(VOCABULARY_SENTENCE_END_SEPARATOR, nStartPosition);
 
-                            nStartPosition = nSentenceEndPosition;
+                                string sSentence = sReadData.Substring(
+                                    nStartPosition + VOCABULARY_SENTENCE_START_SEPARATOR.Length
+                                    , nSentenceEndPosition - nStartPosition - VOCABULARY_SENTENCE_START_SEPARATOR.Length
+                                    );
+                                sSentence = sSentence
+                                    .Replace(VOCABULARY_QUOTE_ENCODE, "\"")
+                                    .Replace(VOCABULARY_OPEN_QUOTE_ENCODE, "\"")
+                                    .Replace(VOCABULARY_CLOSE_QUOTE_ENCODE, "\"")
+                                    .Replace(VOCABULARY_DASH_ENCODE, "-")
+                                    .Replace(VOCABULARY_APOSTROPHE_ENCODE, "'");
+
+                                m_arrExamples.Add(new ExampleItem()
+                                {
+                                    IsSelectedIn = false
+                                    , Sentence = sSentence
+                                });
+
+                                nStartPosition = nSentenceEndPosition;
+                            }
                         }
                         while (nStartPosition >= 0);
-                        
-                        // TODO: Render the words in a template control with checkboxes. On each check loar the number of left
-                        // examples to add at the top label.
+
+                        icExamples.ItemsSource = m_arrExamples;
                     }
                 }
             }
+        }
+
+        private void Sentence_Checked(object sender, RoutedEventArgs e)
+        {
+            m_nNeededExamplesCount--;
+
+            if (m_nNeededExamplesCount <= 0)
+            {
+                cmdSaveExamples.Background = new SolidColorBrush(Colors.Green);
+            }
+        }
+
+        private void Sentence_Unchecked(object sender, RoutedEventArgs e)
+        {
+            m_nNeededExamplesCount++;
+
+            if (m_nNeededExamplesCount > 0)
+            {
+                cmdSaveExamples.Background = new SolidColorBrush(Colors.Transparent);
+            }
+        }
+
+        private void cmdCancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }
