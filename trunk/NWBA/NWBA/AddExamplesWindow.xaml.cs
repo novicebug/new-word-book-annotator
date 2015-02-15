@@ -21,15 +21,15 @@ namespace NWBA
     /// </summary>
     public partial class AddExamplesWindow : Window
     {
-        private string VOCABULARY_URL = "http://corpus.vocabulary.com/api/1.0/examples.json?query={0}&maxResults={1}&startOffset={2}";
-        private int VOCABULARY_PAGE_SIZE = 24;
-        private string VOCABULARY_SENTENCE_START_SEPARATOR = "\"sentence\":\"";
-        private string VOCABULARY_SENTENCE_END_SEPARATOR = "\",\"volumeOffset\":";
-        private string VOCABULARY_QUOTE_ENCODE = "\\\"";
-        private string VOCABULARY_OPEN_QUOTE_ENCODE = "\\u201c";
-        private string VOCABULARY_CLOSE_QUOTE_ENCODE = "\\u201d";
-        private string VOCABULARY_APOSTROPHE_ENCODE = "\\u2019";
-        private string VOCABULARY_DASH_ENCODE = "\\u2014";
+        private const string VOCABULARY_URL = "http://corpus.vocabulary.com/api/1.0/examples.json?query={0}&maxResults={1}&startOffset={2}";
+        private const int VOCABULARY_PAGE_SIZE = 24;
+        private const string VOCABULARY_SENTENCE_START_SEPARATOR = "\"sentence\":\"";
+        private const string VOCABULARY_SENTENCE_END_SEPARATOR = "\",\"volumeOffset\":";
+        private const string VOCABULARY_QUOTE_ENCODE = "\\\"";
+        private const string VOCABULARY_OPEN_QUOTE_ENCODE = "\\u201c";
+        private const string VOCABULARY_CLOSE_QUOTE_ENCODE = "\\u201d";
+        private const string VOCABULARY_APOSTROPHE_ENCODE = "\\u2019";
+        private const string VOCABULARY_DASH_ENCODE = "\\u2014";
 
         private string m_sSearchedWord;
         private int m_nNeededExamplesCount;
