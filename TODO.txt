@@ -1,14 +1,14 @@
 ------ PENDING ------
 
 D2: // 15/2/15
-- 1. Add a button to export lastest words. This will read a new number setting, e.g. 20 by default, and will create a docx file with the top 20 (N) words sorted by create date.
+- 1. Add a button to export lastest words. This will read a new number setting, e.g. 20 by default, and will create a docx file with the top 20 (N) words sorted by create date. // 15/2/15
+
+- 2. Add a popup window for the export button that will provide that option to select how to export the data. For example to sort them by page or alphabetically (radio options), or the last N words (this could replace D2.1) - this could be a radio together with "No limit"/"All" option, or all words in a book. // 15/2/15
+
 
 
 D1: // 15/1/15
-
 - 7. Add a grid holding the examples and make it scrollable on Add/Edit tab.
-
-- 8. On Home tab make the translation and examples scrollable.
 
 - 9. Add ocurrences for word. When a book is selected count for that book only (number of 'q's in page location field). If ALL books count all word locations.
 
@@ -35,6 +35,8 @@ D1: // 15/1/15
 + 1. Move the 3 buttons for add, edit and delete on one row to free up space. // 15/1/15
 
 + 2. Add font_size decimal column to Settings table. Edit it on Settings tab from a numeric up down. // 16/1/15;
+
++ 8. On Home tab make the translation and examples scrollable.
 
 
 

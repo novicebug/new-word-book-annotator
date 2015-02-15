@@ -313,11 +313,6 @@ namespace NWBA
 
         private void cmdAddExamples_Click(object sender, RoutedEventArgs e)
         {
-            if (MAX_EXAMPLES_COUNT == m_oCurrentWord.Examples.Count)
-            {
-                return;
-            }
-
             AddExamplesWindow oAddExamplesWindow = new AddExamplesWindow(
                 m_oCurrentWord.Value
                 , MAX_EXAMPLES_COUNT - m_oCurrentWord.Examples.Count
