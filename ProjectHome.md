@@ -1,0 +1,1 @@
+Annotate new words from a book.
